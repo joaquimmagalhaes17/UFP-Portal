@@ -1,0 +1,2 @@
+module Api::AtmHelper
+end

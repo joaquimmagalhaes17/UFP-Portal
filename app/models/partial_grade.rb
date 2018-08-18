@@ -1,0 +1,2 @@
+class PartialGrade < ApplicationRecord
+end
