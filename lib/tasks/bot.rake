@@ -23,9 +23,4 @@ namespace :bot do
 
     threads.each(&:join)
   end
-
-  desc 'Check if exams dates are available'
-  task exams: :environment do
-    # TODO Create this rake task
-  end
 end
