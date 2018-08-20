@@ -12,6 +12,7 @@ import LoginComponent from '../components/LoginComponent';
 import RegisterComponent from '../components/RegisterComponent'
 import UsersComponent from '../components/UsersComponent';
 import UserDetailsComponent from '../components/UserDetailsComponent';
+import AssiduityComponent from '../components/AssiduityComponent';
 
 let router = new Router({
     routes: [
@@ -67,6 +68,14 @@ let router = new Router({
             path: '/register',
             component: RegisterComponent,
             name: 'Register',
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/assiduity',
+            component: AssiduityComponent,
+            name: 'Assiduity',
             meta: {
                 requiresAuth: true
             }

@@ -57,6 +57,11 @@
             </li>
           </ul>
         </li>
+        <li>
+          <router-link to="/assiduity">
+            <i class="fa fa-home"/> <span>Assiduidade</span>
+          </router-link>
+        </li>
         <li v-if="admin" class="treeview">
           <a href="#">
             <i class="fa fa-address-book-o"/>
