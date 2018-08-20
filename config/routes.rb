@@ -18,8 +18,11 @@ Rails.application.routes.draw do
     get '/menu', to: 'menu#get_menu'
     get '/queue', to: 'queue#get_queue'
 
+    get '/registered', to: 'bot#registered'
+
     post 'login', to: 'auth#login'
-    post '/register', to: 'auth#register'
+    post '/register', to: 'bot#register'
+    post '/update', to: 'bot#update'
     post '/mobile/device/add', to: 'firebase#register_device_id'
     post '/mobile/device/update', to: 'firebase#update_device_id'
     post '/mobile/device/remove', to: 'firebase#remove_device_id'

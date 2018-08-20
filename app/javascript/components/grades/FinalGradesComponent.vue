@@ -3,20 +3,31 @@
   <div>
     <section class="content-header">
       <ol class="breadcrumb">
-        <li><router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link></li>
-        <li class="active">Recent Grades</li>
+        <li>
+          <router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link>
+        </li>
+        <li class="active">Provisional Final Grades</li>
       </ol>
     </section>
     <section class="content">
-      <vuetable ref="vuetable"
-                :api-url="api_url"
-                :fields="fields"
-                :css="css.table"
-                track-by="curricular_unit"
-                pagination-path=""
-                detail-row-component="recent-detail-row"
-                @vuetable:cell-clicked="onCellClicked"
-      ></vuetable>
+      <div class="row">
+        <div class="col-md-9">
+          <h2><b>Provisórias</b> finais</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <vuetable ref="vuetable"
+                    :api-url="api_url"
+                    :fields="fields"
+                    :css="css.table"
+                    pagination-path=""
+                    track-by="curricular_unit"
+                    detail-row-component="final-detail-row"
+                    @vuetable:cell-clicked="onCellClicked"
+          ></vuetable>
+        </div>
+      </div>
     </section>
   </div>
   </div>
@@ -26,12 +37,12 @@
   import Vuetable from 'vuetable-2/src/components/Vuetable'
   import Vue from 'vue/dist/vue.esm'
   import VueEvents from 'vue-events'
-  import RecentGradeDetailRow from './RecentGradeDetailRow'
+  import FinalGradeDetailRow from './FinalGradeDetailRow'
 
   Vue.use(VueEvents)
-  Vue.component('recent-detail-row', RecentGradeDetailRow)
+  Vue.component('final-detail-row', FinalGradeDetailRow)
   export default {
-    name: "RecentGradesComponent",
+    name: "FinalGradesComponent",
     components: {
       Vuetable,
     },
@@ -45,7 +56,7 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
         },
-        api_url: '/api/grades/definitive/recent?table_format=1&token=' + this.$ls.get('token'),
+        api_url: '/api/grades/provisional/final?table_format=1&token=' + this.$ls.get('token'),
       }
     },
     methods: {
@@ -91,12 +102,16 @@
             this.fields = [
               {
                 name: 'curricular_unit',
-                title: 'Descricao'
+                title: 'Unidade Curricular'
               },
               {
-                name: 'grade',
-                title: 'Resultado'
+                name: 'epoch',
+                title: 'Época'
               },
+              {
+                name: 'final_grade',
+                title: 'Classificação Final'
+              }
             ]
             break;
 
@@ -104,15 +119,56 @@
             this.fields = [
               {
                 name: 'curricular_unit',
-                title: 'Descricao'
+                title: 'Unidade Curricular'
               },
               {
-                name: 'course',
-                title: 'Curso (PC)'
+                name: 'epoch',
+                title: 'Época'
               },
               {
-                name: 'grade',
-                title: 'Resultado'
+                name: 'oral_ex',
+                title: 'Exame Oral'
+              },
+              {
+                name: 'write_ex',
+                title: 'Exame escrito'
+              },
+              {
+                name: 'final_grade',
+                title: 'Classificação Final'
+              }
+            ]
+            break;
+
+          case "laptop":
+            this.fields = [
+              {
+                name: 'curricular_unit',
+                title: 'Unidade Curricular'
+              },
+              {
+                name: 'epoch',
+                title: 'Época'
+              },
+              {
+                name: 'oral_ex',
+                title: 'Exame Oral'
+              },
+              {
+                name: 'write_ex',
+                title: 'Exame escrito'
+              },
+              {
+                name: 'final_grade',
+                title: 'Classificação Final'
+              },
+              {
+                name: 'consultation_date',
+                title: 'Consulta'
+              },
+              {
+                name: 'oral_date',
+                title: 'Data Oral'
               }
             ]
             break;
@@ -121,32 +177,43 @@
             this.fields = [
               {
                 name: 'curricular_unit',
-                title: 'Descricao'
+                title: 'Unidade Curricular'
               },
               {
-                name: 'course',
-                title: 'Curso (PC)'
+                name: 'epoch',
+                title: 'Época'
               },
               {
-                name: 'grade',
-                title: 'Resultado'
+                name: 'oral_ex',
+                title: 'Exame Oral'
               },
               {
-                name: 'release_date',
-                title: 'Lançamento'
+                name: 'write_ex',
+                title: 'Exame escrito'
               },
               {
-                name: 'year',
-                title: 'Ano Lectivo'
+                name: 'final_grade',
+                title: 'Classificação Final'
               },
               {
                 name: 'consultation_date',
                 title: 'Consulta'
-              }
-              ,
+              },
               {
                 name: 'oral_date',
-                title: 'Oral'
+                title: 'Data Oral'
+              },
+              {
+                name: 'year',
+                title: 'Ano letivo'
+              },
+              {
+                name: 'date_registration',
+                title: 'Data lançamento'
+              },
+              {
+                name: 'released_by',
+                title: 'Lançada por'
               }
             ]
         }
@@ -161,3 +228,6 @@
     }
   }
 </script>
+<style>
+
+</style>

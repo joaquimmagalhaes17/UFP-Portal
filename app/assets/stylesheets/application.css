@@ -15,4 +15,5 @@
  *= require bootstrap
  *= require AdminLTE.min
  *= require _all-skins.min
+ *= require fullcalendar.min
  */

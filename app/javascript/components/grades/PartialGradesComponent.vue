@@ -10,40 +10,49 @@
         </ol>
       </section>
       <section class="content">
-        <div class="col-lg-4">
-          <div class="form-group">
-            <label for="course">Anos Letivos</label>
-            <select id="course" class="form-control" v-model="selectedYear">
-              <option v-for="year in years" :value="year.id">
-                {{ year.name }}
-              </option>
-            </select>
+        <div class="row">
+          <div class="col-md-9">
+            <h2><b>Provisórias</b> parciais</h2>
           </div>
         </div>
-        <section class="content">
-          <vuetable ref="vuetable"
-                    :api-url="api_url"
-                    :fields="fields"
-                    :css="css.table"
-                    pagination-path=""
-                    :per-page="perPage"
-                    :append-params="appendParams"
-                    @vuetable:pagination-data="onPaginationData"
-          ></vuetable>
           <div class="row">
-            <div class="col-md-12">
-              <div class="vuetable-pagination">
-                <vuetable-pagination-info
-                  ref="paginationInfo"
-                  info-class="pagination-info"/>
-                <vuetable-pagination-bootstrap
-                  ref="pagination"
-                  class="pull-right"
-                  @vuetable-pagination:change-page="onChangePage"/>
+              <div class="col-lg-4">
+                  <div class="form-group">
+                      <label for="course">Anos Letivos</label>
+                      <select id="course" class="form-control" v-model="selectedYear">
+                          <option v-for="year in years" :value="year.id">
+                              {{ year.name }}
+                          </option>
+                      </select>
+                  </div>
               </div>
-            </div>
           </div>
-        </section>
+          <div class="row">
+              <div class="col-md-12">
+                  <vuetable ref="vuetable"
+                            :api-url="api_url"
+                            :fields="fields"
+                            :css="css.table"
+                            pagination-path=""
+                            :per-page="perPage"
+                            :append-params="appendParams"
+                            @vuetable:pagination-data="onPaginationData"
+                  ></vuetable>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="vuetable-pagination">
+                      <vuetable-pagination-info
+                              ref="paginationInfo"
+                              info-class="pagination-info"/>
+                      <vuetable-pagination-bootstrap
+                              ref="pagination"
+                              class="pull-right"
+                              @vuetable-pagination:change-page="onChangePage"/>
+                  </div>
+              </div>
+          </div>
       </section>
     </div>
   </div>
@@ -52,7 +61,7 @@
 <script>
   import Vuetable from 'vuetable-2/src/components/Vuetable'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-  import VuetablePaginationBootstrap from './VuetablePaginationBootstrap'
+  import VuetablePaginationBootstrap from '../VuetablePaginationBootstrap'
   import Vue from 'vue/dist/vue.esm'
   import VueEvents from 'vue-events'
 

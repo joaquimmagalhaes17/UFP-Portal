@@ -8,15 +8,24 @@
       </ol>
     </section>
     <section class="content">
-      <vuetable ref="vuetable"
-                :api-url="api_url"
-                :fields="fields"
-                :css="css.table"
-                pagination-path=""
-                :per-page="perPage"
-                :append-params="appendParams"
-                @vuetable:pagination-data="onPaginationData"
-      ></vuetable>
+      <div class="row">
+        <div class="col-md-9">
+          <h2><b>Definitivas</b> histórico</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <vuetable ref="vuetable"
+                    :api-url="api_url"
+                    :fields="fields"
+                    :css="css.table"
+                    pagination-path=""
+                    :per-page="perPage"
+                    :append-params="appendParams"
+                    @vuetable:pagination-data="onPaginationData"
+          ></vuetable>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="vuetable-pagination">
@@ -38,7 +47,7 @@
 <script>
   import Vuetable from 'vuetable-2/src/components/Vuetable'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-  import VuetablePaginationBootstrap from './VuetablePaginationBootstrap'
+  import VuetablePaginationBootstrap from '../VuetablePaginationBootstrap'
   import Vue from 'vue/dist/vue.esm'
   import VueEvents from 'vue-events'
 

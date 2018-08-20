@@ -22,11 +22,15 @@ Vue.use(VueMq, {
 // import '../lib/stylesheets'
 import '../lib/scripts'
 import router from '../lib/routes'
+import {EventBus} from '../lib/event-bus'
 
 import IndexComponent from '../components/IndexComponent.vue';
 import NavbarComponent from '../components/NavbarComponent.vue';
 import SidebarComponent from '../components/SidebarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import ModalComponent from '../components/ModalComponent'
+
+Vue.prototype.$bus = EventBus
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
@@ -36,7 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             NavbarComponent,
             SidebarComponent,
             FooterComponent,
-            IndexComponent
+            IndexComponent,
+            ModalComponent
         },
     });
 });

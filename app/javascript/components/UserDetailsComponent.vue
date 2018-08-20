@@ -125,7 +125,7 @@
   import VueEvents from 'vue-events'
   import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
   import VuetablePaginationBootstrap from './VuetablePaginationBootstrap'
-  import FinalGradeDetailRow from './FinalGradeDetailRow'
+  import FinalGradeDetailRow from './grades/FinalGradeDetailRow'
   Vue.use(VueEvents)
   Vue.component('final-detail-row', FinalGradeDetailRow)
   export default {
