@@ -84,8 +84,9 @@ module SOAPHandler
 
     return false unless token_valid(response_string)
 
-    if valid_json?(response_string['Exames'])
-      return JSON.parse(response_string['Exames'])
+    if valid_json?(response_string)
+      response_json = JSON.parse(response_string)
+      return response_json['Exames']
     end
     []
   end
