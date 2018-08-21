@@ -22,6 +22,7 @@
                     track-by="curricular_unit"
                     pagination-path=""
                     detail-row-component="recent-detail-row"
+                    :append-params="appendParams"
                     @vuetable:cell-clicked="onCellClicked"
           ></vuetable>
         </div>
@@ -54,6 +55,9 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
         },
+          appendParams: {
+              token: this.$ls.get('token')
+          },
         api_url: '/api/grades/definitive/recent?table_format=1',
       }
     },

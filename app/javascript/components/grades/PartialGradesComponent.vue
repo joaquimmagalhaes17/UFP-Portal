@@ -99,9 +99,10 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
         },
-        appendParams: {
-          year: this.selectedYear
-        },
+          appendParams: {
+              year: this.selectedYear,
+              token: this.$ls.get('token')
+          },
         api_url: '/api/grades/provisional/partial?table_format=1',
       }
     },
