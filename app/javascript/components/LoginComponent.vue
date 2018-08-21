@@ -54,7 +54,7 @@
         }).then(response => {
           this.$ls.set('token', response.data.message)
           this.invalidCredentials = false
-          window.location.href = "/home"
+          window.location.href = "/"
         }).catch(error => {
           this.invalidCredentials = true
         })

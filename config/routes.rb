@@ -2,7 +2,6 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   get '/', to: 'home#index'
-  get '/home', to: 'home#index'
 
   namespace :api do
     get '/grades/provisional/partial', to: 'grades#provisional_partial'
@@ -17,6 +16,7 @@ Rails.application.routes.draw do
     get '/exams', to: 'exams#get_exams'
     get '/menu', to: 'menu#get_menu'
     get '/queue', to: 'queue#get_queue'
+    get '/calendar', to: 'calendar#index'
 
     get '/registered', to: 'bot#registered'
 

@@ -79,9 +79,7 @@
             </li>
           </ul>
         </li>
-        <li v-if="!admin"
-            :class="{ active: isActive('index') }"
-            @click="setActive('index')">
+        <li v-if="!admin">
           <router-link to="/register">
             <i class="fa fa-home"/> <span><b>UFP</b>Bot</span>
           </router-link>

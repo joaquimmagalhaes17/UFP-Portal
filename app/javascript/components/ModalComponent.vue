@@ -11,9 +11,12 @@
                     <p>Inicio: {{start}}</p>
                     <p>Fim: {{end}}</p>
                     <p>Sala: {{room}}</p>
+                    <p>Curso: {{course}}</p>
+                    <p>Tipologia: {{type}}</p>
+                    <p>Responsavel: {{responsable}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" @click="confirm">{{confirmText}}</button>
+                    <button type="button" class="btn btn-primary" @click="confirm">Close</button>
                 </div>
             </div>
         </div>
@@ -21,21 +24,22 @@
 </template>
 
 <script>
+    import moment from 'moment'
     export default {
         name: "ModalComponent",
         mounted () {
-            this.$bus.$on('abcd', (args) => {
-                this.type = args.type
-                this.title = args.title
-                this.start = args.start
-                this.end = args.end
-                this.room = args.room
-                this.confirmText = args.confirmText || 'Close'
-
+            this.$bus.$on('open-modal', (args) => {
+                this.title = args.details['curricular_unit']
+                this.start = this.timeFormat(args.start)
+                this.end = this.timeFormat(args.end)
+                this.room = args.details.room
+                this.type = args.details.type
+                this.responsable = args.details.responsable
+                this.course = args.details.course
                 $('#bsModal').modal('show')
             })
-            $('#bsModal').on('show.bs.modal', (e) => {
-            })
+
+            $('#bsModal').on('show.bs.modal', (e) => {})
 
             $('#bsModal').on('hidden.bs.modal', (e) => {
                 this.resetProperties()
@@ -43,12 +47,14 @@
         },
         data () {
             return {
-                type: '',
                 title: '',
                 start: '',
                 end: '',
                 room: '',
-                confirmText: '',
+                type: '',
+                course: '',
+                responsable: '',
+                confirmText: 'Close'
             }
         },
         methods: {
@@ -62,6 +68,12 @@
                 this.end = ''
                 this.room = ''
                 this.confirmText = ''
+            },
+            dateTimeFormat(timestamp) {
+                return moment(timestamp).format("YYYY-MM-DD HH:mm")
+            },
+            timeFormat(timestamp) {
+                return moment(timestamp).format("HH:mm")
             }
         }
     }

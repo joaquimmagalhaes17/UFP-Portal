@@ -42,9 +42,8 @@
                 <li class="user-footer">
                   <div class="pull-right">
                     <a
-                      href="/logout"
                       class="btn btn-default btn-flat"
-                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      @click="logout">
                       Logout
                     </a>
                     <form
@@ -77,10 +76,11 @@
                 csrf: this.$csrfToken
             }
         },
-        beforeMount(){
-        },
-        mounted() {
-            console.log('Navbar Component mounted.')
+        methods: {
+            logout() {
+                this.$ls.remove('token')
+                window.location.href = "/"
+            }
         }
     }
 </script>
