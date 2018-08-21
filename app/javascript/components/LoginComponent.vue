@@ -4,27 +4,29 @@
       <b>UFP</b>Portal
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body">
-      <p class="login-box-msg">Login to start your session</p>
-      <div class="form-group has-feedback">
-        <input v-model="number" type="text" class="form-control" placeholder="Number">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input v-model="password" type="password" class="form-control" placeholder="Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="row">
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button v-on:click="login" type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+    <form>
+      <div class="login-box-body">
+        <p class="login-box-msg">Login to start your session</p>
+        <div class="form-group has-feedback">
+          <input v-model="number" type="text" class="form-control" placeholder="Number">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
-        <div v-if="invalidCredentials" class="col-xs-4">
-          <h5 style="color: red">Invalid Credentials</h5>
+        <div class="form-group has-feedback">
+          <input v-model="password" type="password" class="form-control" placeholder="Password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
-        <!-- /.col -->
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button v-on:click="login" type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+          </div>
+          <div v-if="invalidCredentials" class="col-xs-4">
+            <h5 style="color: red">Invalid Credentials</h5>
+          </div>
+          <!-- /.col -->
+        </div>
       </div>
-    </div>
+    </form>
     <!-- /.login-box-body -->
   </div>
 </template>
