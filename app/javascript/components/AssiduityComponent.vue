@@ -20,6 +20,7 @@
                                   :fields="fields"
                                   :css="css.table"
                                   pagination-path=""
+                                  :append-params="appendParams"
                         ></vuetable>
                     </div>
                 </div>
@@ -58,6 +59,9 @@
                         ascendingIcon: 'glyphicon glyphicon-chevron-up',
                         descendingIcon: 'glyphicon glyphicon-chevron-down'
                     },
+                },
+                appendParams: {
+                    token: this.$ls.get('token')
                 },
                 api_url: '/api/assiduity?table_format=1',
             }
