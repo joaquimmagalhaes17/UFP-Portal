@@ -54,7 +54,7 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
         },
-        api_url: '/api/grades/definitive/recent?table_format=1&token=' + this.$ls.get('token'),
+        api_url: '/api/grades/definitive/recent?table_format=1',
       }
     },
     methods: {

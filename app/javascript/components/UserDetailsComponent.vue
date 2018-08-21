@@ -206,10 +206,10 @@
           year: this.selectedYear
         },
         api_url:{
-          provisionalPartial: '/api/web/admin/user/grades/provisional/partials?token=' + this.$ls.get('token') + '&user_id=' + this.$route.params.user_id,
-          provisionalFinal: '/api/web/admin/user/grades/provisional/finals?token=' + this.$ls.get('token') + '&user_id=' + this.$route.params.user_id,
-          definitiveRecent: '/api/web/admin/user/grades/definitive/recent?token=' + this.$ls.get('token') + '&user_id=' + this.$route.params.user_id,
-          definitiveHistoric: '/api/web/admin/user/grades/definitive/historic?token=' + this.$ls.get('token') + '&user_id=' + this.$route.params.user_id,
+          provisionalPartial: '/api/web/admin/user/grades/provisional/partials?user_id=' + this.$route.params.user_id,
+          provisionalFinal: '/api/web/admin/user/grades/provisional/finals?user_id=' + this.$route.params.user_id,
+          definitiveRecent: '/api/web/admin/user/grades/definitive/recent?user_id=' + this.$route.params.user_id,
+          definitiveHistoric: '/api/web/admin/user/grades/definitive/historic?user_id=' + this.$route.params.user_id,
         },
       }
     },
@@ -233,7 +233,7 @@
       }
     },
     beforeMount() {
-      axios.get('/api/web/admin/user/grades/provisional/partials/years?token=' + this.$ls.get('token') + '&user_id=7')
+      axios.get('/api/web/admin/user/grades/provisional/partials/years?user_id=7')
         .then(response => {
           response.data.forEach(year => {
             this.years.push({

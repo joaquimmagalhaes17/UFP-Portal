@@ -63,7 +63,7 @@
             }
         },
         beforeMount() {
-            axios.get('/api/calendar?token=' + this.$ls.get('token')).then(response => {
+            axios.get('/api/calendar').then(response => {
                 this.events = response.data
             })
         }

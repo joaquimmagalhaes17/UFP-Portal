@@ -19,7 +19,6 @@ Vue.use(VueMq, {
     }
 })
 
-// import '../lib/stylesheets'
 import '../lib/scripts'
 import router from '../lib/routes'
 import {EventBus} from '../lib/event-bus'
@@ -30,7 +29,7 @@ import SidebarComponent from '../components/SidebarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import ModalComponent from '../components/ModalComponent'
 
-Vue.prototype.$bus = EventBus
+Vue.prototype.$bus = EventBus;
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({

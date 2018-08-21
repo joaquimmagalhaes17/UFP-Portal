@@ -102,11 +102,11 @@
         appendParams: {
           year: this.selectedYear
         },
-        api_url: '/api/grades/provisional/partial?table_format=1&token=' + this.$ls.get('token'),
+        api_url: '/api/grades/provisional/partial?table_format=1',
       }
     },
     beforeMount() {
-      axios.get('/api/grades/provisional/partial/years?token=' + this.$ls.get('token'))
+      axios.get('/api/grades/provisional/partial/years')
         .then(response => {
           response.data.message.forEach(year => {
             this.years.push({

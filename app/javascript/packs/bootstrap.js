@@ -35,6 +35,20 @@ if (token) {
 }
 
 /**
+ * Next we will register the API Token in all request body with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+let api_token = localStorage.getItem('token');
+
+if (api_token) {
+    window.axios.defaults.params = {}
+    window.axios.defaults.params['token'] = api_token
+} else {
+    console.error('API Token not found')
+}
+
+/**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.

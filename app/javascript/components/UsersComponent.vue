@@ -58,7 +58,7 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
         },
-        api_url: '/api/web/admin/users?token=' + this.$ls.get('token'),
+        api_url: '/api/web/admin/users',
       }
     },
     methods: {

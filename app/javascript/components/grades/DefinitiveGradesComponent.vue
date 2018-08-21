@@ -75,7 +75,7 @@
         appendParams: {
           year: this.selectedYear
         },
-        api_url: '/api/grades/definitive/historic?table_format=1&token=' + this.$ls.get('token'),
+        api_url: '/api/grades/definitive/historic?table_format=1',
       }
     },
     methods: {
