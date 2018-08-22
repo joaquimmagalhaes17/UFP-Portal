@@ -1,49 +1,53 @@
 <template>
-    <div id="content-wrap" class="content-wrapper" style="min-height: 926px;">
-        <div>
-            <section class="content-header">
-                <ol class="breadcrumb">
-                    <li>
-                        <router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link>
-                    </li>
-                    <li class="active">Partial Grades</li>
-                </ol>
-            </section>
-            <section class="content">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h2 v-html="$t('definitive.header') "></h2>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <vuetable ref="vuetable"
-                                  :api-url="api_url"
-                                  :fields="fields"
-                                  :css="css.table"
-                                  pagination-path=""
-                                  :per-page="perPage"
-                                  :append-params="appendParams"
-                                  @vuetable:pagination-data="onPaginationData"
-                        ></vuetable>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="vuetable-pagination">
-                            <vuetable-pagination-info
-                                    ref="paginationInfo"
-                                    info-class="pagination-info"/>
-                            <vuetable-pagination-bootstrap
-                                    ref="pagination"
-                                    class="pull-right"
-                                    @vuetable-pagination:change-page="onChangePage"/>
-                        </div>
-                    </div>
-                </div>
-            </section>
+  <div 
+    id="content-wrap" 
+    class="content-wrapper" 
+    style="min-height: 926px;">
+    <div>
+      <section class="content-header">
+        <ol class="breadcrumb">
+          <li>
+            <router-link to="/"><i class="fa fa-dashboard"/> Home</router-link>
+          </li>
+          <li class="active">Partial Grades</li>
+        </ol>
+      </section>
+      <section class="content">
+        <div class="row">
+          <div class="col-md-9">
+            <h2 v-html="$t('definitive.header') "/>
+          </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <vuetable 
+              ref="vuetable"
+              :api-url="api_url"
+              :fields="fields"
+              :css="css.table"
+              :per-page="perPage"
+              :append-params="appendParams"
+              pagination-path=""
+              @vuetable:pagination-data="onPaginationData"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="vuetable-pagination">
+              <vuetable-pagination-info
+                ref="paginationInfo"
+                info-class="pagination-info"/>
+              <vuetable-pagination-bootstrap
+                ref="pagination"
+                class="pull-right"
+                @vuetable-pagination:change-page="onChangePage"/>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+  </div>
 </template>
 
 <script>
@@ -80,6 +84,18 @@
                 },
                 api_url: '/api/grades/definitive/historic?table_format=1',
             }
+        },
+        beforeMount() {
+            window.addEventListener('resize', this.handleScreenChange)
+            this.configTableRows()
+
+            this.$bus.$on('change-language', (args) => {
+                if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
+                    this.$refs.vuetable.normalizeFields()
+            })
+        },
+        beforeDestroy: function () {
+            window.removeEventListener('resize', this.handleScreenChange)
         },
         methods: {
             onPaginationData(paginationData) {
@@ -168,17 +184,5 @@
                 }
             }
         },
-        beforeMount() {
-            window.addEventListener('resize', this.handleScreenChange)
-            this.configTableRows()
-
-            this.$bus.$on('change-language', (args) => {
-                if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
-                    this.$refs.vuetable.normalizeFields()
-            })
-        },
-        beforeDestroy: function () {
-            window.removeEventListener('resize', this.handleScreenChange)
-        }
     }
 </script>

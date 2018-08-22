@@ -1,23 +1,27 @@
 <template>
-  <div id="content-wrap" class="content-wrapper" style="min-height: 926px;">
+  <div 
+    id="content-wrap" 
+    class="content-wrapper" 
+    style="min-height: 926px;">
     <div>
       <section class="content-header">
         <ol class="breadcrumb">
           <li>
-            <router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link>
+            <router-link to="/"><i class="fa fa-dashboard"/> Home</router-link>
           </li>
           <li class="active">Partial Grades</li>
         </ol>
       </section>
       <section class="content">
-        <vuetable ref="vuetable"
-                  :api-url="api_url"
-                  :fields="fields"
-                  :css="css.table"
-                  pagination-path=""
-                  :per-page="perPage"
-                  @vuetable:cell-clicked="onCellClicked"
-        ></vuetable>
+        <vuetable 
+          ref="vuetable"
+          :api-url="api_url"
+          :fields="fields"
+          :css="css.table"
+          :per-page="perPage"
+          pagination-path=""
+          @vuetable:cell-clicked="onCellClicked"
+        />
       </section>
     </div>
   </div>

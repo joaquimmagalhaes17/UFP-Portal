@@ -1,34 +1,38 @@
 <template>
-  <div id="content-wrap" class="content-wrapper" style="min-height: 926px;">
-  <div>
-    <section class="content-header">
-      <ol class="breadcrumb">
-        <li><router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link></li>
-        <li class="active">Recent Grades</li>
-      </ol>
-    </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-md-9">
-          <h2 v-html="$t('recent.header') "></h2>
+  <div 
+    id="content-wrap" 
+    class="content-wrapper" 
+    style="min-height: 926px;">
+    <div>
+      <section class="content-header">
+        <ol class="breadcrumb">
+          <li><router-link to="/"><i class="fa fa-dashboard"/> Home</router-link></li>
+          <li class="active">Recent Grades</li>
+        </ol>
+      </section>
+      <section class="content">
+        <div class="row">
+          <div class="col-md-9">
+            <h2 v-html="$t('recent.header') "/>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <vuetable ref="vuetable"
-                    :api-url="api_url"
-                    :fields="fields"
-                    :css="css.table"
-                    track-by="curricular_unit"
-                    pagination-path=""
-                    detail-row-component="recent-detail-row"
-                    :append-params="appendParams"
-                    @vuetable:cell-clicked="onCellClicked"
-          ></vuetable>
+        <div class="row">
+          <div class="col-md-12">
+            <vuetable 
+              ref="vuetable"
+              :api-url="api_url"
+              :fields="fields"
+              :css="css.table"
+              :append-params="appendParams"
+              track-by="curricular_unit"
+              pagination-path=""
+              detail-row-component="recent-detail-row"
+              @vuetable:cell-clicked="onCellClicked"
+            />
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -60,6 +64,18 @@
           },
         api_url: '/api/grades/definitive/recent?table_format=1',
       }
+    },
+    beforeDestroy: function () {
+      window.removeEventListener('resize', this.handleScreenChange)
+    },
+    beforeMount() {
+      window.addEventListener('resize', this.handleScreenChange);
+      this.configTableRows();
+
+      this.$bus.$on('change-language', (args) => {
+          if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
+              this.$refs.vuetable.normalizeFields()
+      })
     },
     methods: {
       onCellClicked(data, field, event) {
@@ -165,17 +181,5 @@
         }
       }
     },
-    beforeDestroy: function () {
-      window.removeEventListener('resize', this.handleScreenChange)
-    },
-    beforeMount() {
-      window.addEventListener('resize', this.handleScreenChange);
-      this.configTableRows();
-
-      this.$bus.$on('change-language', (args) => {
-          if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
-              this.$refs.vuetable.normalizeFields()
-      })
-    }
   }
 </script>

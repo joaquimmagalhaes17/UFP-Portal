@@ -1,32 +1,63 @@
 <template lang="html">
-    <!-- Modal -->
-    <div class="modal fade" id="bsModal" tabindex="-1" role="dialog" aria-labelledby="bsModalLabel" data-toggle="modal" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="bsModalLabel">{{title}}</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Inicio: {{start}}</p>
-                    <p>Fim: {{end}}</p>
-                    <p>Sala: {{room}}</p>
-                    <p>Curso: {{course}}</p>
-                    <p>Tipologia: {{type}}</p>
-                    <p>Responsavel: {{responsable}}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" @click="confirm">Close</button>
-                </div>
-            </div>
+  <!-- Modal -->
+  <div 
+    id="bsModal" 
+    class="modal fade" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="bsModalLabel" 
+    data-toggle="modal" 
+    data-backdrop="static" 
+    data-keyboard="false">
+    <div 
+      class="modal-dialog" 
+      role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button 
+            type="button" 
+            class="close" 
+            data-dismiss="modal" 
+            aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 
+            id="bsModalLabel" 
+            class="modal-title">{{ title }}</h4>
         </div>
+        <div class="modal-body">
+          <p>Inicio: {{ start }}</p>
+          <p>Fim: {{ end }}</p>
+          <p>Sala: {{ room }}</p>
+          <p>Curso: {{ course }}</p>
+          <p>Tipologia: {{ type }}</p>
+          <p>Responsavel: {{ responsable }}</p>
+        </div>
+        <div class="modal-footer">
+          <button 
+            type="button" 
+            class="btn btn-primary" 
+            @click="confirm">Close</button>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
     import moment from 'moment'
     export default {
         name: "ModalComponent",
+        data () {
+            return {
+                title: '',
+                start: '',
+                end: '',
+                room: '',
+                type: '',
+                course: '',
+                responsable: '',
+                confirmText: 'Close'
+            }
+        },
         mounted () {
             this.$bus.$on('open-modal', (args) => {
                 this.title = args.details['curricular_unit']
@@ -44,18 +75,6 @@
             $('#bsModal').on('hidden.bs.modal', (e) => {
                 this.resetProperties()
             })
-        },
-        data () {
-            return {
-                title: '',
-                start: '',
-                end: '',
-                room: '',
-                type: '',
-                course: '',
-                responsable: '',
-                confirmText: 'Close'
-            }
         },
         methods: {
             confirm: function () {

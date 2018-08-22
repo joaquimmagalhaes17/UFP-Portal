@@ -1,10 +1,13 @@
 <template>
-  <div id="content-wrap" class="content-wrapper" style="min-height: 926px;">
+  <div 
+    id="content-wrap" 
+    class="content-wrapper" 
+    style="min-height: 926px;">
     <div>
       <section class="content-header">
         <ol class="breadcrumb">
           <li>
-            <router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link>
+            <router-link to="/"><i class="fa fa-dashboard"/> Home</router-link>
           </li>
           <li class="active">Grades</li>
         </ol>
@@ -22,23 +25,29 @@
           <div class="col-md-4">
             <div class="form-group">
               <label for="course">Anos Letivos</label>
-              <select id="course" class="form-control" v-model="selectedYear">
-                <option v-for="year in years" :value="year.id">
+              <select 
+                id="course" 
+                v-model="selectedYear" 
+                class="form-control">
+                <option 
+                  v-for="year in years"
+                  :key="year.id">
                   {{ year.name }}
                 </option>
               </select>
             </div>
           </div>
           <div class="col-md-12">
-            <vuetable ref="provisionalPartial"
-                      :api-url="api_url.provisionalPartial"
-                      :fields="fields.provisionalPartial"
-                      :css="css.table"
-                      pagination-path=""
-                      :per-page="perPage"
-                      :append-params="appendParams"
-                      @vuetable:pagination-data="onPaginationDataProvisionalPartial"
-            ></vuetable>
+            <vuetable 
+              ref="provisionalPartial"
+              :api-url="api_url.provisionalPartial"
+              :fields="fields.provisionalPartial"
+              :css="css.table"
+              :per-page="perPage"
+              :append-params="appendParams"
+              pagination-path=""
+              @vuetable:pagination-data="onPaginationDataProvisionalPartial"
+            />
           </div>
           <div class="col-md-12">
             <div class="vuetable-pagination">
@@ -58,16 +67,17 @@
             <h4>Notas finais provisórias</h4>
           </div>
           <div class="col-md-12">
-            <vuetable ref="provisionalFinals"
-                      :api-url="api_url.provisionalFinal"
-                      :fields="fields.provisionalFinal"
-                      :css="css.table"
-                      pagination-path=""
-                      :per-page="perPage"
-                      :append-params="appendParams"
-                      detail-row-component="final-detail-row"
-                      @vuetable:cell-clicked="onCellClicked"
-            ></vuetable>
+            <vuetable 
+              ref="provisionalFinals"
+              :api-url="api_url.provisionalFinal"
+              :fields="fields.provisionalFinal"
+              :css="css.table"
+              :per-page="perPage"
+              :append-params="appendParams"
+              pagination-path=""
+              detail-row-component="final-detail-row"
+              @vuetable:cell-clicked="onCellClicked"
+            />
           </div>
         </div>
         <hr>
@@ -76,14 +86,15 @@
             <h4>Notas definitivas recentes</h4>
           </div>
           <div class="col-md-12">
-            <vuetable ref="definitiveRecent"
-                      :api-url="api_url.definitiveRecent"
-                      :fields="fields.definitiveRecent"
-                      :css="css.table"
-                      pagination-path=""
-                      :per-page="perPage"
-                      :append-params="appendParams"
-            ></vuetable>
+            <vuetable 
+              ref="definitiveRecent"
+              :api-url="api_url.definitiveRecent"
+              :fields="fields.definitiveRecent"
+              :css="css.table"
+              :per-page="perPage"
+              :append-params="appendParams"
+              pagination-path=""
+            />
           </div>
         </div>
         <hr>
@@ -92,15 +103,16 @@
             <h4>Notas definitivas histórico</h4>
           </div>
           <div class="col-md-12">
-            <vuetable ref="definitiveHistoric"
-                      :api-url="api_url.definitiveHistoric"
-                      :fields="fields.definitiveHistoric"
-                      :css="css.table"
-                      pagination-path=""
-                      :per-page="perPage"
-                      :append-params="appendParams"
-                      @vuetable:pagination-data="onPaginationDataHistoric"
-            ></vuetable>
+            <vuetable 
+              ref="definitiveHistoric"
+              :api-url="api_url.definitiveHistoric"
+              :fields="fields.definitiveHistoric"
+              :css="css.table"
+              :per-page="perPage"
+              :append-params="appendParams"
+              pagination-path=""
+              @vuetable:pagination-data="onPaginationDataHistoric"
+            />
           </div>
           <div class="col-md-12">
             <div class="vuetable-pagination">
@@ -213,6 +225,27 @@
         },
       }
     },
+    watch: {
+      'selectedYear': function (val, oldVal) {
+        this.appendParams.year = val;
+        Vue.nextTick(() => this.$refs.provisionalPartial.refresh())
+      },
+    },
+    beforeMount() {
+      axios.get('/api/web/admin/user/grades/provisional/partials/years?user_id=7')
+        .then(response => {
+          response.data.forEach(year => {
+            this.years.push({
+              id: year,
+              name: year
+            })
+          });
+          this.selectedYear = response.data[0];
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     methods: {
       onPaginationDataProvisionalPartial(paginationData) {
         this.$refs.provisionalPartialPagination.setPaginationData(paginationData);
@@ -232,27 +265,6 @@
         this.$refs.provisionalFinals.toggleDetailRow(data.id)
       }
     },
-    beforeMount() {
-      axios.get('/api/web/admin/user/grades/provisional/partials/years?user_id=7')
-        .then(response => {
-          response.data.forEach(year => {
-            this.years.push({
-              id: year,
-              name: year
-            })
-          });
-          this.selectedYear = response.data[0];
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    },
-    watch: {
-      'selectedYear': function (val, oldVal) {
-        this.appendParams.year = val;
-        Vue.nextTick(() => this.$refs.provisionalPartial.refresh())
-      },
-    }
   }
 </script>
 

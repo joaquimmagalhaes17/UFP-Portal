@@ -1,5 +1,7 @@
 <template>
-  <aside v-if="['Login'].indexOf($route.name) !== 0" class="main-sidebar">
+  <aside 
+    v-if="['Login'].indexOf($route.name) !== 0" 
+    class="main-sidebar">
     <section class="sidebar">
       <ul
         class="sidebar-menu"
@@ -26,8 +28,8 @@
                 <i class="fa fa-address-book-o"/>
                 <span>{{ $t("sidebar.grades.provisional") }}</span>
                 <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"/>
-            </span>
+                  <i class="fa fa-angle-left pull-right"/>
+                </span>
               </a>
               <ul class="treeview-menu">
                 <li>
@@ -43,8 +45,8 @@
                 <i class="fa fa-address-book-o"/>
                 <span>{{ $t("sidebar.grades.definitive") }}</span>
                 <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"/>
-            </span>
+                  <i class="fa fa-angle-left pull-right"/>
+                </span>
               </a>
               <ul class="treeview-menu">
                 <li>
@@ -62,7 +64,9 @@
             <i class="fa fa-home"/> <span>{{ $t("sidebar.assiduity") }}</span>
           </router-link>
         </li>
-        <li v-if="admin" class="treeview">
+        <li 
+          v-if="admin" 
+          class="treeview">
           <a href="#">
             <i class="fa fa-address-book-o"/>
             <span><b>UFP</b>Bot</span>

@@ -1,24 +1,36 @@
 <template>
   <ul class="pagination">
     <li :class="{'disabled': isOnFirstPage}">
-      <a href="" @click.prevent="loadPage('prev')">
+      <a 
+        href="" 
+        @click.prevent="loadPage('prev')">
         <span>&laquo;</span>
       </a>
     </li>
 
     <template v-if="notEnoughPages">
-      <li v-for="n in totalPage" :class="{'active': isCurrentPage(n.toString())}">
-        <a @click.prevent="loadPage(n)" v-html="n"></a>
+      <li 
+        v-for="n in totalPage" 
+        :class="{'active': isCurrentPage(n.toString())}">
+        <a 
+          @click.prevent="loadPage(n)" 
+          v-html="n"/>
       </li>
     </template>
     <template v-else>
-      <li v-for="n in windowSize" :class="{'active': isCurrentPage((windowStart+n-1).toString())}">
-        <a @click.prevent="loadPage(windowStart+n-1)" v-html="windowStart+n-1"></a>
+      <li 
+        v-for="n in windowSize" 
+        :class="{'active': isCurrentPage((windowStart+n-1).toString())}">
+        <a 
+          @click.prevent="loadPage(windowStart+n-1)" 
+          v-html="windowStart+n-1"/>
       </li>
     </template>
 
     <li :class="{'disabled': isOnLastPage}">
-      <a href="" @click.prevent="loadPage('next')">
+      <a 
+        href="" 
+        @click.prevent="loadPage('next')">
         <span>&raquo;</span>
       </a>
     </li>

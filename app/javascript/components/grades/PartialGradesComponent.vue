@@ -1,10 +1,13 @@
 <template>
-  <div id="content-wrap" class="content-wrapper" style="min-height: 926px;">
+  <div 
+    id="content-wrap" 
+    class="content-wrapper" 
+    style="min-height: 926px;">
     <div>
       <section class="content-header">
         <ol class="breadcrumb">
           <li>
-            <router-link to="/"><i class="fa fa-dashboard"></i> Home</router-link>
+            <router-link to="/"><i class="fa fa-dashboard"/> Home</router-link>
           </li>
           <li class="active">Partial Grades</li>
         </ol>
@@ -12,47 +15,53 @@
       <section class="content">
         <div class="row">
           <div class="col-md-9">
-            <h2 v-html="$t('partial.header') "></h2>
+            <h2 v-html="$t('partial.header') "/>
           </div>
         </div>
-          <div class="row">
-              <div class="col-lg-4">
-                  <div class="form-group">
-                      <label for="course">{{ $t('partial.year') }}</label>
-                      <select id="course" class="form-control" v-model="selectedYear">
-                          <option v-for="year in years" :value="year.id">
-                              {{ year.name }}
-                          </option>
-                      </select>
-                  </div>
-              </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label for="course">{{ $t('partial.year') }}</label>
+              <select 
+                id="course" 
+                v-model="selectedYear" 
+                class="form-control">
+                <option 
+                  v-for="year in years"
+                  :key="year.id">
+                  {{ year.name }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="row">
-              <div class="col-md-12">
-                  <vuetable ref="vuetable"
-                            :api-url="api_url"
-                            :fields="fields"
-                            :css="css.table"
-                            pagination-path=""
-                            :per-page="perPage"
-                            :append-params="appendParams"
-                            @vuetable:pagination-data="onPaginationData"
-                  ></vuetable>
-              </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <vuetable 
+              ref="vuetable"
+              :api-url="api_url"
+              :fields="fields"
+              :css="css.table"
+              :per-page="perPage"
+              :append-params="appendParams"
+              pagination-path=""
+              @vuetable:pagination-data="onPaginationData"
+            />
           </div>
-          <div class="row">
-              <div class="col-md-12">
-                  <div class="vuetable-pagination">
-                      <vuetable-pagination-info
-                              ref="paginationInfo"
-                              info-class="pagination-info"/>
-                      <vuetable-pagination-bootstrap
-                              ref="pagination"
-                              class="pull-right"
-                              @vuetable-pagination:change-page="onChangePage"/>
-                  </div>
-              </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="vuetable-pagination">
+              <vuetable-pagination-info
+                ref="paginationInfo"
+                info-class="pagination-info"/>
+              <vuetable-pagination-bootstrap
+                ref="pagination"
+                class="pull-right"
+                @vuetable-pagination:change-page="onChangePage"/>
+            </div>
           </div>
+        </div>
       </section>
     </div>
   </div>
@@ -106,6 +115,12 @@
         api_url: '/api/grades/provisional/partial?table_format=1',
       }
     },
+    watch: {
+      'selectedYear': function (val, oldVal) {
+        this.appendParams.year = val;
+        Vue.nextTick(() => this.$refs.vuetable.refresh())
+      },
+    },
     beforeMount() {
       axios.get('/api/grades/provisional/partial/years')
         .then(response => {
@@ -125,12 +140,6 @@
             if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
                 this.$refs.vuetable.normalizeFields()
         })
-    },
-    watch: {
-      'selectedYear': function (val, oldVal) {
-        this.appendParams.year = val;
-        Vue.nextTick(() => this.$refs.vuetable.refresh())
-      },
     },
     methods: {
       onPaginationData(paginationData) {

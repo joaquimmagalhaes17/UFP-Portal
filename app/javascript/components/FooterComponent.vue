@@ -2,7 +2,9 @@
   <footer class="main-footer">
     <div class="pull-right">
       <select v-model="selectedLanguage">
-        <option v-for="lang in langs" :value="lang.id">
+        <option 
+          v-for="lang in langs"
+          :key="lang.id">
           {{ lang.name }}
         </option>
       </select>
@@ -13,9 +15,6 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Footer mounted');
-        },
         data() {
             return {
                 selectedLanguage: this.$i18n.locale,
@@ -37,6 +36,9 @@
                 this.$ls.set('locale', val)
                 this.$bus.$emit('change-language', null)
             },
+        },
+        mounted() {
+            console.log('Footer mounted');
         },
     }
 </script>

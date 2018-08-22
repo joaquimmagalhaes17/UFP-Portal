@@ -8,19 +8,32 @@
       <div class="login-box-body">
         <p class="login-box-msg">Login to start your session</p>
         <div class="form-group has-feedback">
-          <input v-model="number" type="text" class="form-control" placeholder="Number">
-          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <input 
+            v-model="number" 
+            type="text" 
+            class="form-control" 
+            placeholder="Number">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"/>
         </div>
         <div class="form-group has-feedback">
-          <input v-model="password" type="password" class="form-control" placeholder="Password">
-          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <input 
+            v-model="password" 
+            type="password" 
+            class="form-control" 
+            placeholder="Password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"/>
         </div>
         <div class="row">
           <!-- /.col -->
           <div class="col-xs-4">
-            <button v-on:click="login" type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+            <button 
+              type="submit" 
+              class="btn btn-primary btn-block btn-flat" 
+              @click="login">Login</button>
           </div>
-          <div v-if="invalidCredentials" class="col-xs-4">
+          <div 
+            v-if="invalidCredentials" 
+            class="col-xs-4">
             <h5 style="color: red">Invalid Credentials</h5>
           </div>
           <!-- /.col -->
