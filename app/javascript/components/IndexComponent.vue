@@ -65,8 +65,24 @@
         beforeMount() {
             axios.get('/api/calendar').then(response => {
                 this.events = response.data
+            });
+
+            this.$bus.$on('change-language', (args) => {
+                if (this.$refs.calendar !== undefined && this.$refs.calendar !== null) {
+                    this.config.buttonText = {
+                        today: this.$t("calendar.today"),
+                        month: this.$t("calendar.month"),
+                        week: this.$t("calendar.week"),
+                        day: this.$t("calendar.day"),
+                        list: this.$t("calendar.list"),
+                    };
+                    this.locale = this.$i18n.locale;
+
+                    this.$refs.calendar.fireMethod('option', 'buttonText', this.config.buttonText)
+                    this.$refs.calendar.fireMethod('option', 'locale', this.locale)
+                }
             })
-        }
+        },
     }
 </script>
 
