@@ -32,8 +32,9 @@
         },
         watch: {
             'selectedLanguage': function (val, oldVal) {
-                this.$i18n.locale = val
-                this.$ls.set('locale', val)
+                const lang = (val === 'English' ? 'en' : 'pt');
+                this.$i18n.locale = lang;
+                this.$ls.set('locale', lang)
                 this.$bus.$emit('change-language', null)
             },
         },

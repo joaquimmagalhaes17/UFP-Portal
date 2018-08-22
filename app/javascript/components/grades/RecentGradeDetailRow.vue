@@ -31,7 +31,7 @@
     </div>
     <br>
     <div class="inline field">
-      <label>{{ $t('recent.table.oral') }}: </label>
+      <label>{{ $t('recent.table.oral_date') }}: </label>
       <span>{{ rowData.oral }}</span>
     </div>
   </div>
