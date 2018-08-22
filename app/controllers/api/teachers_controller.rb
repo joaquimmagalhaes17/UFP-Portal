@@ -36,7 +36,6 @@ module Api
       email = items.inner_text.to_s.scan(/[a-z0-9-]{1,30}@[a-z0-9-]{1,65}.[a-z]{1,}/)
       information[:email] = email[0] unless email.nil?
 
-
       items.each do |entry|
         if entry.inner_text == 'Ocupação Semanal do Docente'
           s_counter = p_counter + 1

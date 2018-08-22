@@ -139,11 +139,7 @@ module Api::GradesHelper
       per_page: Integer(params[:per_page]),
       current_page: Integer(params[:page]),
       last_page: total_pages,
-      next_page_url: if Integer(params[:page]) == total_pages || total_pages == 0 then
-                         nil
-                       else
-                         true
-                       end,
+      next_page_url: ((Integer(params[:page]) == total_pages || total_pages == 0) ? nil : true),
       prev_page_url: Integer(params[:page]) == 1 ? nil : true,
       from: first + 1,
       to: first + grades.count,

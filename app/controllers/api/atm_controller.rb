@@ -5,10 +5,9 @@ module Api
       information = SOAPHandler.get_atm(token['token'])
 
       render json: {
-          status: 'Ok',
-          message: information
+        status: 'Ok',
+        message: information
       }.to_json, status: 200
     end
   end
 end
-

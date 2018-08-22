@@ -23,7 +23,7 @@ class Analysis
   def refresh_tokens
     @tokens = SOAPHandler.login(
       @user.student_number,
-        CipherHelper.decrypt(@user.password)
+      CipherHelper.decrypt(@user.password)
     )
 
     @user.update!(tokens: @tokens)
@@ -73,12 +73,12 @@ class Analysis
     grades.each do |grade|
       final_grade_exists(
         grade['Unidade'],
-          grade['Epoca'],
-          grade['NotaOral'],
-          grade['Exame'],
-          grade['Nota'],
-          grade['Consulta'],
-          grade['Oral']
+        grade['Epoca'],
+        grade['NotaOral'],
+        grade['Exame'],
+        grade['Nota'],
+        grade['Consulta'],
+        grade['Oral']
       )
     end
   end

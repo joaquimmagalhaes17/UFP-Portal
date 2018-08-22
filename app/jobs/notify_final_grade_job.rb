@@ -26,9 +26,9 @@ class NotifyFinalGradeJob < ApplicationJob
 
   def push_notification(user_id, curricular_unit, epoch, oral_ex, write_ex, final_grade, consultation_date, oral_date)
     text = "Epoca: #{epoch}" +
-        "\r\nExame Oral: #{oral_ex}\r\nExame Escrito: #{write_ex}" +
-        "\r\nNota: #{final_grade}\r\nConsulta: #{consultation_date}\r\n" +
-        "Data Oral: #{oral_date}\r\nI know, I'm awesome ❤️"
+           "\r\nExame Oral: #{oral_ex}\r\nExame Escrito: #{write_ex}" +
+           "\r\nNota: #{final_grade}\r\nConsulta: #{consultation_date}\r\n" +
+           "Data Oral: #{oral_date}\r\nI know, I'm awesome ❤️"
 
     devices_id = DeviceId.where(user_id: user_id).pluck('device_id').to_a
 

@@ -8,7 +8,7 @@ class AdminMiddleware
 
     if protected_route(request.path)
       unless is_token_invalid(request.params['token'])
-        return [403, {'Content-Type' => 'text/html', 'Content-Length' => 'Invalid token'.size.to_s}, ['Invalid admin token']]
+        return [403, { 'Content-Type' => 'text/html', 'Content-Length' => 'Invalid token'.size.to_s }, ['Invalid admin token']]
       end
     end
 

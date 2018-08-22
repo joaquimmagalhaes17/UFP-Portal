@@ -107,8 +107,6 @@ module SOAPHandler
     response_json['Docente']
   end
 
-  private
-
   def self.valid_json?(string)
     !!JSON.parse(string)
   rescue JSON::ParserError
