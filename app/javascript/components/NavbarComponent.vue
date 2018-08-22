@@ -73,7 +73,7 @@
                 profile: {
                     name: 'Secretário'
                 },
-                csrf: this.$csrfToken
+                csrf: this.$csrfToken,
             }
         },
         methods: {

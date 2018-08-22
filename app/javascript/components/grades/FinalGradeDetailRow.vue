@@ -1,52 +1,52 @@
 <template>
   <div>
     <div class="inline field">
-      <label>Ano Lectivo: </label>
+      <label>{{ $t('final.table.year') }}:</label>
       <span>{{rowData.year}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Unidade Curricular: </label>
+      <label>{{ $t('final.table.curricular_unit') }}:</label>
       <span>{{rowData.curricular_unit}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Época: </label>
+      <label>{{ $t('final.table.epoch') }}:</label>
       <span>{{rowData.epoch}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Exame Oral: </label>
+      <label>{{ $t('final.table.oral_ex') }}:</label>
       <span>{{rowData.oral_ex}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Exame Escrito: </label>
+      <label>{{ $t('final.table.write_ex') }}:</label>
       <span>{{rowData.write_ex}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Classif. Final: </label>
+      <label>{{ $t('final.table.final_grade') }}:</label>
       <span>{{rowData.final_grade}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Consulta: </label>
+      <label>{{ $t('final.table.consultation_date') }}:</label>
       <span>{{rowData.consultation_date}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Data Oral: </label>
+      <label>{{ $t('final.table.oral_date') }}:</label>
       <span>{{rowData.oral_date}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Registo: </label>
+      <label>{{ $t('final.table.date_registration') }}:</label>
       <span>{{rowData.date_registration}}</span>
     </div>
     <br>
     <div class="inline field">
-      <label>Lançado por: </label>
+      <label>{{ $t('final.table.released_by') }}:</label>
       <span>{{rowData.released_by}}</span>
     </div>
   </div>

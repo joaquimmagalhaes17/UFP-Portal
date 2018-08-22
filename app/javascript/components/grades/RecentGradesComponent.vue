@@ -10,7 +10,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-9">
-          <h2><b>Definitivas</b> recentes</h2>
+          <h2 v-html="$t('recent.header') "></h2>
         </div>
       </div>
       <div class="row">
@@ -104,11 +104,11 @@
             this.fields = [
               {
                 name: 'curricular_unit',
-                title: 'Descricao'
+                title: () => this.$t('recent.table.curricular_unit')
               },
               {
                 name: 'grade',
-                title: 'Resultado'
+                title: () => this.$t('recent.table.grade')
               },
             ]
             break;
@@ -117,15 +117,15 @@
             this.fields = [
               {
                 name: 'curricular_unit',
-                title: 'Descricao'
+                title: () => this.$t('recent.table.curricular_unit')
               },
               {
                 name: 'course',
-                title: 'Curso (PC)'
+                title: () => this.$t('recent.table.course')
               },
               {
                 name: 'grade',
-                title: 'Resultado'
+                title: () => this.$t('recent.table.grade')
               }
             ]
             break;
@@ -134,32 +134,32 @@
             this.fields = [
               {
                 name: 'curricular_unit',
-                title: 'Descricao'
+                title: () => this.$t('recent.table.curricular_unit')
               },
               {
                 name: 'course',
-                title: 'Curso (PC)'
+                title: () => this.$t('recent.table.course')
               },
               {
                 name: 'grade',
-                title: 'Resultado'
+                title: () => this.$t('recent.table.grade')
               },
               {
                 name: 'release_date',
-                title: 'Lançamento'
+                title: () => this.$t('recent.table.release_date')
               },
               {
                 name: 'year',
-                title: 'Ano Lectivo'
+                title: () => this.$t('recent.table.year')
               },
               {
                 name: 'consultation_date',
-                title: 'Consulta'
+                title: () => this.$t('recent.table.consultation_date')
               }
               ,
               {
                 name: 'oral_date',
-                title: 'Oral'
+                title: () => this.$t('recent.table.oral_date')
               }
             ]
         }
@@ -169,8 +169,13 @@
       window.removeEventListener('resize', this.handleScreenChange)
     },
     beforeMount() {
-      window.addEventListener('resize', this.handleScreenChange)
-      this.configTableRows()
+      window.addEventListener('resize', this.handleScreenChange);
+      this.configTableRows();
+
+      this.$bus.$on('change-language', (args) => {
+          if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
+              this.$refs.vuetable.normalizeFields()
+      })
     }
   }
 </script>

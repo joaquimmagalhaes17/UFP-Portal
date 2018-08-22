@@ -10,7 +10,7 @@
             <section class="content">
                 <div class="row">
                     <div class="col-md-9">
-                        <h2>Assiduidade</h2>
+                        <h2>{{ $t("assiduity.header") }}</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -42,15 +42,15 @@
                 fields: [
                     {
                         name: 'curricular_unit',
-                        title: 'Unidade Curricular'
+                        title: this.$t("assiduity.table.curricular_unit")
                     },
                     {
                         name: 'type',
-                        title: 'Tipo'
+                        title: this.$t("assiduity.table.type")
                     },
                     {
                         name: 'assiduity',
-                        title: 'Assiduidade'
+                        title: this.$t("assiduity.table.assiduity")
                     },
                 ],
                 css: {

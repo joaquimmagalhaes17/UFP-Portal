@@ -16,29 +16,29 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputNome">Nome </label>
+                            <label for="exampleInputNome">{{ $t('register.name') }} </label>
                             <input v-model="form.name" type="text" class="form-control" id="exampleInputNome"
                                    placeholder="Nome">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail">Email</label>
+                            <label for="exampleInputEmail">{{ $t('register.email') }}</label>
                             <input v-model="form.email" type="email" class="form-control" id="exampleInputEmail"
                                    placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputContact">Contacto</label>
+                            <label for="exampleInputContact">{{ $t('register.contact') }}</label>
                             <input v-model="form.contact" type="text" class="form-control" id="exampleInputContact"
                                    placeholder="Número de telémovel">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="exampleInputNumber">Número </label>
+                            <label for="exampleInputNumber">{{ $t('register.number') }} </label>
                             <input v-model="form.number" type="text" class="form-control" id="exampleInputNumber"
                                    placeholder="Número de aluno">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword">Password</label>
+                            <label for="exampleInputPassword">{{ $t('register.password') }}</label>
                             <input v-model="form.password" type="password" class="form-control"
                                    id="exampleInputPassword"
                                    placeholder="Password">
@@ -46,13 +46,13 @@
                     </div>
                     <div class="col-md-12">
                         <button v-if="!userRegistered" v-on:click="register" type="submit" class="btn btn-default">
-                            Registar
+                            {{ $t('register.register') }}
                         </button>
                         <button v-if="userRegistered" v-on:click="update" type="submit" class="btn btn-default">
-                            Atualizar
+                            {{ $t('register.update') }}
                         </button>
                         <button v-if="userRegistered" v-on:click="remove" type="submit" class="btn btn-default">
-                            Remover
+                            {{ $t('register.remove') }}
                         </button>
                     </div>
                 </div>

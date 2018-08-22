@@ -12,13 +12,13 @@
       <section class="content">
         <div class="row">
           <div class="col-md-9">
-            <h2><b>Provisórias</b> parciais</h2>
+            <h2 v-html="$t('partial.header') "></h2>
           </div>
         </div>
           <div class="row">
               <div class="col-lg-4">
                   <div class="form-group">
-                      <label for="course">Anos Letivos</label>
+                      <label for="course">{{ $t('partial.year') }}</label>
                       <select id="course" class="form-control" v-model="selectedYear">
                           <option v-for="year in years" :value="year.id">
                               {{ year.name }}
@@ -81,15 +81,15 @@
         fields: [
           {
             name: 'curricular_unit',
-            title: 'Unidade Curricular'
+            title: () => this.$t('partial.table.curricular_unit')
           },
           {
             name: 'element',
-            title: 'Elemento'
+            title: () => this.$t('partial.table.element')
           },
           {
             name: 'grade',
-            title: 'Nota'
+            title: () => this.$t('partial.table.grade')
           }
         ],
         css: {
@@ -121,6 +121,10 @@
           console.log(e)
         })
 
+        this.$bus.$on('change-language', (args) => {
+            if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
+                this.$refs.vuetable.normalizeFields()
+        })
     },
     watch: {
       'selectedYear': function (val, oldVal) {

@@ -10,7 +10,7 @@
             <section class="content">
                 <div class="row">
                     <div class="col-md-9">
-                        <h2>Calendário</h2>
+                        <h2>{{ $t("index.header") }}</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -37,13 +37,13 @@
             return {
                 events: [],
                 config: {
-                    locale: 'pt',
+                    locale: this.$i18n.locale,
                     buttonText: {
-                        today: 'Hoje',
-                        month: 'Mês',
-                        week: 'Semana',
-                        day: 'Dia',
-                        list: 'Lista'
+                        today: this.$t("calendar.today"),
+                        month: this.$t("calendar.month"),
+                        week: this.$t("calendar.week"),
+                        day: this.$t("calendar.day"),
+                        list: this.$t("calendar.list"),
                     },
                     header: {
                         left: 'prev,next',

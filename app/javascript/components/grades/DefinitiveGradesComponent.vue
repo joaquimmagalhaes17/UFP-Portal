@@ -12,7 +12,7 @@
             <section class="content">
                 <div class="row">
                     <div class="col-md-9">
-                        <h2><b>Definitivas</b> histórico</h2>
+                        <h2 v-html="$t('definitive.header') "></h2>
                     </div>
                 </div>
                 <div class="row">
@@ -128,15 +128,15 @@
                         this.fields = [
                             {
                                 name: 'curricular_unit',
-                                title: 'Unidade'
+                                title: () => this.$t('definitive.table.curricular_unit')
                             },
                             {
                                 name: 'grade',
-                                title: 'Nota'
+                                title: () => this.$t('definitive.table.grade')
                             },
                             {
                                 name: 'registration_date',
-                                title: 'Registo'
+                                title: () => this.$t('definitive.table.registration_date')
                             }
                         ]
                         break;
@@ -145,23 +145,23 @@
                         this.fields = [
                             {
                                 name: 'degree',
-                                title: 'Grau'
+                                title: () => this.$t('definitive.table.degree')
                             },
                             {
                                 name: 'curricular_unit',
-                                title: 'Unidade'
+                                title: () => this.$t('definitive.table.curricular_unit')
                             },
                             {
                                 name: 'course',
-                                title: 'Curso'
+                                title: () => this.$t('definitive.table.course')
                             },
                             {
                                 name: 'grade',
-                                title: 'Nota'
+                                title: () => this.$t('definitive.table.grade')
                             },
                             {
                                 name: 'registration_date',
-                                title: 'Registo'
+                                title: () => this.$t('definitive.table.registration_date')
                             }
                         ]
                         break;
@@ -171,6 +171,11 @@
         beforeMount() {
             window.addEventListener('resize', this.handleScreenChange)
             this.configTableRows()
+
+            this.$bus.$on('change-language', (args) => {
+                if (this.$refs.vuetable !== undefined && this.$refs.vuetable !== null)
+                    this.$refs.vuetable.normalizeFields()
+            })
         },
         beforeDestroy: function () {
             window.removeEventListener('resize', this.handleScreenChange)
