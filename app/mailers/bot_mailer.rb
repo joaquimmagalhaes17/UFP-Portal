@@ -1,5 +1,6 @@
 class BotMailer < ApplicationMailer
   def partial_grade(user, unit, element, grade)
+    @username = user.name
     @unit = unit
     @element = element
     @grade = grade
@@ -7,6 +8,7 @@ class BotMailer < ApplicationMailer
   end
 
   def final_grade(user, curricular_unit, epoch, oral_ex, write_ex, final_grade, consultation_date, oral_date)
+    @username = user.name
     @unit = curricular_unit
     @epoch = epoch
     @oral_ex = oral_ex
