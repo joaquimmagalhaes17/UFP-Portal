@@ -6,7 +6,7 @@ module Api
 
       render json: {
         status: 'Ok',
-        message: information
+        message: AtmHelper.parse(information)
       }.to_json, status: 200
     end
   end
