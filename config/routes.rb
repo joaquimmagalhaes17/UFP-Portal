@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get '/menu', to: 'menu#get_menu'
     get '/queue', to: 'queue#get_queue'
     get '/calendar', to: 'calendar#index'
+    get '/schedule', to: 'schedule#get_schedule'
 
     get '/registered', to: 'bot#registered'
 

@@ -91,6 +91,14 @@ module SOAPHandler
     []
   end
 
+  def self.get_schedule(token)
+    response = @client.call(:schedule, message: { token: token })
+    response_string = response.body[:schedule_response][:schedule_result]
+
+    response_json = JSON.parse(response_string.to_s)
+    response_json['schedule']
+  end
+
   def self.get_teachers
     response = @client.call(:docentes)
     response_string = response.body[:docentes_response][:docentes_result]
