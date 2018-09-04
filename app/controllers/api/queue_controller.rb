@@ -6,7 +6,10 @@ module Api
       response = RestClient.post('http://senha.ufp.pt/Home/getFilaMin', {})
 
       unless response.code == 200
-        render json: 'Internal error', response_code: 500
+        return render json: {
+          status: 'Error',
+          message: 'Internal error'
+        }.to_json, status: 500
       end
 
       all_tickets = JSON.parse(response.body)
@@ -24,7 +27,10 @@ module Api
         }
       end
 
-      render json: tickets.to_json, response_code: 200
+      render json: {
+        status: 'Ok',
+        message: tickets
+      }.to_json, status: 200
     end
   end
 end
