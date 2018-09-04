@@ -48,9 +48,7 @@ module Api::GradesHelper
   def self.parse_partial_years(partial_grades)
     years = []
     partial_grades.each do |grade|
-      unless years.include? grade['AnoLectivo']
-        years << grade['AnoLectivo']
-      end
+      years << grade['AnoLectivo'] unless years.include? grade['AnoLectivo']
     end
 
     years
@@ -89,7 +87,7 @@ module Api::GradesHelper
                     Integer(total_pages)
                   end
 
-    return {
+    {
       total: counter + 1,
       per_page: Integer(params[:per_page]),
       current_page: Integer(params[:page]),
@@ -134,7 +132,7 @@ module Api::GradesHelper
                     Integer(total_pages)
                   end
 
-    return {
+    {
       total: historic_grades.count,
       per_page: Integer(params[:per_page]),
       current_page: Integer(params[:page]),
@@ -165,9 +163,10 @@ module Api::GradesHelper
     grades = []
 
     historic_grades.each do |grade|
-      grades << {
-        degree: grade['Grau'],
-        course: grade['Curso'],
+      degree = get_degree_object(grade['Grau'], grades)
+      course = get_course_object(grade['Curso'], degree)
+
+      course[:grades] << {
         curricular_unit: grade['Unidade'],
         grade: grade['Nota'],
         registration_date: grade['Registo']
@@ -176,6 +175,34 @@ module Api::GradesHelper
 
     grades
   end
+
+  def self.get_degree_object(degree, grades)
+    grades.each do |entry|
+      return entry if entry[:degree] == degree
+    end
+
+    aux = {
+      degree: degree,
+      courses: []
+    }
+    grades << aux
+    aux
+  end
+
+  def self.get_course_object(course, degree)
+    degree[:courses].each do |entry|
+      return entry if entry[:course] == course
+    end
+
+    aux = {
+      course: course,
+      grades: []
+    }
+    degree[:courses] << aux
+    aux
+  end
+
+
 
   def self.parse_final_grades(final_grades)
     grades = []
