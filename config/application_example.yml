@@ -20,6 +20,7 @@ stmp_password:
 
 database_username:
 database_password:
+database_socket:
 
 bulk_sms_key: ''
 firebase_key: ''
