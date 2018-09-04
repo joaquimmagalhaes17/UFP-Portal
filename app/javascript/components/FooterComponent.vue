@@ -1,5 +1,7 @@
 <template>
-  <footer class="main-footer">
+  <footer 
+    v-if="['Login'].indexOf($route.name) !== 0" 
+    class="main-footer">
     <div class="pull-right">
       <select v-model="selectedLanguage">
         <option 
