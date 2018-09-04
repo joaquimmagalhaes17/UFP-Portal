@@ -20,7 +20,7 @@ module Api::AssiduityHelper
         unit[:information] << {
           year: entry['AnoLectivo'],
           type: entry['Tipo'],
-          class: entry['Turma'],
+          class_name: entry['Turma'],
           assiduity: entry['Assiduidade']
         }
         break
