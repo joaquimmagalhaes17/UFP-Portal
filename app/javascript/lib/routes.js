@@ -97,7 +97,8 @@ let router = new Router({
             }
         }
     ],
-    linkActiveClass: 'active'
+    linkActiveClass: 'active',
+    mode: 'history'
 })
 
 router.beforeEach((to, from, next) => {
