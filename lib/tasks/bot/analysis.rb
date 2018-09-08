@@ -3,6 +3,7 @@
 class Analysis
   def initialize(user)
     @user = user
+    @soap_handler = SOAPHandler
   end
 
   def start
@@ -21,7 +22,7 @@ class Analysis
   private
 
   def refresh_tokens
-    @tokens = SOAPHandler.login(
+    @tokens = @soap_handler.login(
       @user.student_number,
       CipherHelper.decrypt(@user.password)
     )
@@ -31,11 +32,11 @@ class Analysis
   end
 
   def partial_grades
-    grades = SOAPHandler.provisional_partial_grades(@tokens)
+    grades = @soap_handler.provisional_partial_grades(@tokens)
 
     unless grades
       refresh_tokens
-      grades = SOAPHandler.provisional_partial_grades(@tokens)
+      grades = @soap_handler.provisional_partial_grades(@tokens)
     end
 
     grades = JSON.parse(grades) if grades.is_a? String
@@ -59,11 +60,11 @@ class Analysis
   end
 
   def final_grades
-    grades = SOAPHandler.provisional_final_grades(@tokens)
+    grades = @soap_handler.provisional_final_grades(@tokens)
 
     unless grades
       refresh_tokens
-      grades = SOAPHandler.provisional_final_grades(@tokens)
+      grades = @soap_handler.provisional_final_grades(@tokens)
     end
 
     grades = JSON.parse(grades) if grades.is_a? String

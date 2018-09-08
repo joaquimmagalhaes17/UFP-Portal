@@ -7,6 +7,10 @@ require 'json'
 module SOAPHandler
   @client = Savon.client(wsdl: 'https://portal.ufp.pt/hi5.asmx?WSDL')
 
+  def initialize
+    @client = Savon.client(wsdl: 'https://portal.ufp.pt/hi5.asmx?WSDL')
+  end
+
   def self.login(number, password)
     response = @client.call(:encrypt, message: { phrase: "#{number},#{password}" })
     key = response.body[:encrypt_response][:encrypt_result]
