@@ -39,10 +39,7 @@
                 this.$ls.set('locale', lang)
                 this.$bus.$emit('change-language', null)
             },
-        },
-        mounted() {
-            console.log('Footer mounted');
-        },
+        }
     }
 </script>
 

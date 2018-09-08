@@ -67,7 +67,7 @@
           username: this.number,
           password: this.password
         }).then(response => {
-          this.$ls.set('token', response.data.message)
+          localStorage.setItem('token', response.data.message)
           this.invalidCredentials = false
           window.location.href = "/"
         }).catch(error => {
