@@ -22,5 +22,8 @@ database_username:
 database_password:
 database_socket:
 
+UFPBOT_DATABASE_USERNAME: ''
+UFPBOT_DATABASE_PASSWORD: ''
+
 bulk_sms_key: ''
 firebase_key: ''

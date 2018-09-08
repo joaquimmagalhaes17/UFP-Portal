@@ -44,8 +44,6 @@ let api_token = localStorage.getItem('token');
 if (api_token) {
     window.axios.defaults.params = {}
     window.axios.defaults.params['token'] = api_token
-} else {
-    console.error('API Token not found')
 }
 
 /**
