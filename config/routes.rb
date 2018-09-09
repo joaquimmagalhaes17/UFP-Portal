@@ -1,8 +1,4 @@
-require 'sidekiq/web'
-
 Rails.application.routes.draw do
-  get '/', to: 'home#index'
-
   namespace :api do
     get '/grades/provisional/partial', to: 'grades#provisional_partial'
     get '/grades/provisional/partial/years', to: 'grades#provisional_partial_years'
@@ -29,5 +25,6 @@ Rails.application.routes.draw do
     post '/mobile/device/remove', to: 'firebase#remove_device_id'
   end
 
-  mount Sidekiq::Web => '/sidekiq'
+  get '/', to: 'home#index'
+  get '*path', to: 'home#index'
 end
