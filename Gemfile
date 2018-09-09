@@ -59,10 +59,8 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'bootstrap-sass', '~> 3.3.7'
 gem 'fcm'
 gem 'figaro'
-gem 'font-awesome-sass', '~> 4.7.0'
 gem 'foreman'
 gem 'gibberish'
 gem 'jquery-rails'
