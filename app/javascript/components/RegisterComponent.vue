@@ -51,7 +51,7 @@
               <label for="exampleInputNumber">{{ $t('register.number') }} </label>
               <input 
                 id="exampleInputNumber" 
-                v-model="form.number" 
+                v-model="form.student_number"
                 type="text" 
                 class="form-control"
                 placeholder="Número de aluno">
@@ -81,6 +81,7 @@
               @click="update">
               {{ $t('register.update') }}
             </button>
+            <!--
             <button 
               v-if="userRegistered" 
               type="submit" 
@@ -88,6 +89,7 @@
               @click="remove">
               {{ $t('register.remove') }}
             </button>
+            -->
           </div>
         </div>
         <br>
@@ -127,7 +129,7 @@
             return {
                 form: {
                     name: '',
-                    number: '',
+                    student_number: '',
                     password: '',
                     email: '',
                     contact: ''
@@ -155,7 +157,7 @@
         },
         methods: {
             register() {
-                axios.post('/api/web/register', this.form)
+                axios.post('/api/register', this.form)
                     .then(response => {
                         this.errors.status = false
                         this.success.status = true
@@ -181,7 +183,7 @@
                     })
             },
             remove() {
-                axios.post('/api/web/register/cancel', this.$ls.get('token'))
+                /*axios.post('/api/web/register/cancel', this.$ls.get('token'))
                     .then(response => {
                         this.errors.status = false
                         this.success.status = true
@@ -192,6 +194,7 @@
                         this.errors.status = true
                         this.errors.message = e.response.data.message
                     })
+                    */
             }
         },
     }
