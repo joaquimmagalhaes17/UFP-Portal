@@ -48,14 +48,14 @@ module Api
     end
 
     def update
-      if params[:number].nil? || params[:number].empty?
+      if params[:student_number].nil? || params[:student_number].empty?
         return render json: {
           status: 'Error',
           message: 'Missing fields'
         }.to_json, status: 400
       end
 
-      user = User.find_by(student_number: params[:number])
+      user = User.find_by(student_number: params[:student_number])
 
       if user.nil?
         return render json: {
