@@ -16,10 +16,10 @@ class NotifyFinalGradeJob < ApplicationJob
   private
 
   def sms_notification(user, curricular_unit, epoch, oral_ex, write_ex, final_grade, consultation_date, oral_date)
-    text = "Nova nota provisória.\r\nUnidade: #{curricular_unit}\r\nEpoca: #{epoch}" +
+    text = "#{curricular_unit}\r\nEpoca: #{epoch}" +
            "\r\nExame Oral: #{oral_ex}\r\nExame Escrito: #{write_ex}" +
            "\r\nNota: #{final_grade}\r\nConsulta: #{consultation_date}\r\n" +
-           "Data Oral: #{oral_date}\r\nI know, I'm awesome ❤️"
+           "Data Oral: #{oral_date}"
 
     NotificationsHelper.send_sms(user.contact, text)
   end

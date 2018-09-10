@@ -7,34 +7,24 @@ require 'rpush'
 module NotificationsHelper
   @content = ''
   @templates = {
-    normal: "#{@content}\r\nI know, I am awesome ❤️",
+    normal: '\r\nI know, I am awesome ❤️',
     short: 'Tem uma nova nota mas não é possivel notificar por aqui, verifique o seu email.'
   }
 
   def self.send_sms(contact, body)
-    @content = body
-    msg = @templates[:normal]
-
-    if msg > 200
-      msg = if body.to_s.length <= 200
-              body.to_s
-            else
-              @templates[:short]
-            end
-    end
-
+    msg = "#{body}\r\nI know, I am awesome ❤️"
     data = JSON.dump(to: contact, body: msg, encoding: 'UNICODE')
+
+    puts data
 
     headers = {
       'Content-Type': 'application/json',
       'Authorization': ENV['bulk_sms_key']
     }
 
-    response = RestClient.post(
+    RestClient.post(
       'https://api.bulksms.com/v1/messages', data, headers
     )
-
-    puts response.body
   end
 
   def self.send_push_notification(devices_id, title, body)

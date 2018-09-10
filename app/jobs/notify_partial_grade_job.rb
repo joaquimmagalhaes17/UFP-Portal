@@ -18,9 +18,9 @@ class NotifyPartialGradeJob < ApplicationJob
   private
 
   def sms_notification(user, unit, element, grade)
-    text = 'Nova nota parcial',
-           "#{unit}\nElemento: #{element}\nNota: #{grade}\nI know, I'm awesome ❤️"
+    text = "#{unit}\r\nElemento: #{element}\r\nNota: #{grade}"
 
+    puts text
     NotificationsHelper.send_sms(user.contact, text)
   end
 

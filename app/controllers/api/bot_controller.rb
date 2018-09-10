@@ -29,7 +29,7 @@ module Api
         email: params[:email],
         student_number: params[:student_number],
         password: params[:password].nil? ? '' : CipherHelper.encrypt(params[:password]),
-        contact: params[:contact]
+        contact: "351#{params[:contact]}"
       )
 
       unless user.valid?
@@ -73,7 +73,7 @@ module Api
 
       user.update!(
         email: params[:email],
-        contact: params[:contact],
+        contact: "351#{params[:contact]}",
         name: params[:name],
         password: CipherHelper.encrypt(params[:password])
       )
