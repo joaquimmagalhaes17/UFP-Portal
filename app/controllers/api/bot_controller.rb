@@ -6,7 +6,7 @@ module Api
   class BotController < ApiController
     def registered
       token = JSON.parse(CipherHelper.decrypt(params[:token]))
-      user = User.select('name, email, student_number as number, contact').find_by(
+      user = User.select('name, email, student_number, contact').find_by(
         student_number: token['username']
       )
 
