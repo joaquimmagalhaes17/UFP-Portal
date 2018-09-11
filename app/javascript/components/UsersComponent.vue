@@ -19,6 +19,7 @@
           :fields="fields"
           :css="css.table"
           :per-page="perPage"
+          :append-params="appendParams"
           pagination-path=""
           @vuetable:cell-clicked="onCellClicked"
         />
@@ -29,10 +30,7 @@
 
 <script>
   import Vuetable from 'vuetable-2/src/components/Vuetable'
-  import Vue from 'vue/dist/vue.esm'
-  import VueEvents from 'vue-events'
 
-  Vue.use(VueEvents)
   export default {
     name: "UsersComponent",
     components: {
@@ -47,12 +45,16 @@
             title: 'Nome'
           },
           {
-            name: 'number',
+            name: 'student_number',
             title: 'Número de aluno'
           },
           {
             name: 'email',
             title: 'Email'
+          },
+          {
+              name: 'contact',
+              title: 'Contacto'
           }
         ],
         css: {
@@ -62,7 +64,10 @@
             descendingIcon: 'glyphicon glyphicon-chevron-down'
           },
         },
-        api_url: '/api/web/admin/users',
+        api_url: '/api/admin/users',
+        appendParams: {
+            token: this.$ls.get('token')
+        }
       }
     },
     methods: {

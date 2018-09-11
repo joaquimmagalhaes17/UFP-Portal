@@ -8,9 +8,13 @@ class APIMiddleware
   def call(env)
     request = Rack::Request.new(env)
 
-    if protected_route(request.path)
+    if request.path != '/api/login' && protected_route(request.path)
       if request.params['token'].to_s.empty?
-        return [403, { 'Content-Type' => 'text/html', 'Content-Length' => 'Invalid token'.size.to_s }, ['Invalid token']]
+        return [
+          403,
+          { 'Content-Type' => 'text/html', 'Content-Length' => 'Invalid token'.size.to_s },
+          ['Invalid token']
+        ]
       end
     end
 
@@ -19,15 +23,11 @@ class APIMiddleware
 
   private
 
-  def protected_route(route)
-    routes = [
-      '/api/grades/provisional/partial',
-      '/api/grades/provisional/final',
-      ' /api/grades/definitive/recent',
-      '/api/grades/definitive/historic',
-      '/api/assiduity'
-    ]
+  def verify_token(token)
+    CipherHelper.decrypt(token)
+  end
 
-    routes.include? route
+  def protected_route(route)
+    route.to_s.match('(?<=\/api).*$')
   end
 end

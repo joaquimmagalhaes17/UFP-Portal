@@ -29,7 +29,8 @@ module Api
         email: params[:email],
         student_number: params[:student_number],
         password: params[:password].nil? ? '' : CipherHelper.encrypt(params[:password]),
-        contact: "351#{params[:contact]}"
+        contact: "351#{params[:contact]}",
+        admin: User.all.empty?
       )
 
       unless user.valid?

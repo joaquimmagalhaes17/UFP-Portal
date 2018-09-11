@@ -23,6 +23,12 @@ Rails.application.routes.draw do
     post '/mobile/device/add', to: 'firebase#register_device_id'
     post '/mobile/device/update', to: 'firebase#update_device_id'
     post '/mobile/device/remove', to: 'firebase#remove_device_id'
+
+    get '/admin/users', to: 'admin#get_users'
+    get '/admin/check', to: 'admin#is_admin'
+    get '/admin/user/:id', to: 'admin#get_user_details'
+    put '/admin/user/update', to: 'admin#update_user'
+    post '/admin/user/remove', to: 'admin#remove_user'
   end
 
   get '/', to: 'home#index'

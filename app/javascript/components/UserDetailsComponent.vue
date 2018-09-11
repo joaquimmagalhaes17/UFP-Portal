@@ -1,128 +1,150 @@
 <template>
-  <div 
-    id="content-wrap" 
-    class="content-wrapper" 
+  <div
+    id="content-wrap"
+    class="content-wrapper"
     style="min-height: 926px;">
     <div>
       <section class="content-header">
         <ol class="breadcrumb">
-          <li>
-            <router-link to="/"><i class="fa fa-dashboard"/> Home</router-link>
-          </li>
-          <li class="active">Grades</li>
+          <li><a href="#"><i class="fa fa-dashboard"/> Home</a></li>
+          <li class="active">Dashboard</li>
         </ol>
       </section>
       <section class="content">
         <div class="row">
-          <div class="col-md-12">
-            <h3>Detalhes do utilizador</h3>
+          <div class="col-md-9">
+            <h2><b>UFP</b>Bot</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-            <h4>Notas parciais</h4>
-          </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="form-group">
-              <label for="course">Anos Letivos</label>
-              <select 
-                id="course" 
-                v-model="selectedYear" 
-                class="form-control">
-                <option 
-                  v-for="year in years"
-                  :key="year.id">
-                  {{ year.name }}
-                </option>
-              </select>
+              <label for="exampleInputNome">{{ $t('register.name') }} </label>
+              <input
+                id="exampleInputNome"
+                v-model="form.name"
+                type="text"
+                class="form-control"
+                placeholder="Nome">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail">{{ $t('register.email') }}</label>
+              <input
+                id="exampleInputEmail"
+                v-model="form.email"
+                type="email"
+                class="form-control"
+                placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputContact">{{ $t('register.contact') }}</label>
+              <input
+                id="exampleInputContact"
+                v-model="form.contact"
+                type="text"
+                class="form-control"
+                placeholder="Número de telémovel">
             </div>
           </div>
-          <div class="col-md-12">
-            <vuetable 
-              ref="provisionalPartial"
-              :api-url="api_url.provisionalPartial"
-              :fields="fields.provisionalPartial"
-              :css="css.table"
-              :per-page="perPage"
-              :append-params="appendParams"
-              pagination-path=""
-              @vuetable:pagination-data="onPaginationDataProvisionalPartial"
-            />
-          </div>
-          <div class="col-md-12">
-            <div class="vuetable-pagination">
-              <vuetable-pagination-info
-                ref="provisionalPartialPaginationInfo"
-                info-class="pagination-info"/>
-              <vuetable-pagination-bootstrap
-                ref="provisionalPartialPagination"
-                class="pull-right"
-                @vuetable-pagination:change-page="onChangePageProvisionalPartial"/>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="exampleInputNumber">{{ $t('register.number') }} </label>
+              <input
+                id="exampleInputNumber"
+                v-model="form.student_number"
+                type="text"
+                class="form-control"
+                placeholder="Número de aluno">
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="sms_enable">{{ $t('register.sms_notifications') }} </label>
+                  <div
+                    :style="checkbox"
+                    class="checkbox">
+                    <bootstrap-toggle
+                      id="sms_enable"
+                      v-model="form.sms_notification"
+                      :options="{ on: $t('toggle.on'), off: $t('toggle.off') }"
+                      :disabled="false"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="email_enable">{{ $t('register.email_notifications') }} </label>
+                  <div
+                    :style="checkbox"
+                    class="checkbox">
+                    <bootstrap-toggle
+                      id="email_enable"
+                      v-model="form.email_notification"
+                      :options="{ on: $t('toggle.on'), off: $t('toggle.off') }"
+                      :disabled="false"/>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="user_enable">{{ $t('register.enable') }} </label>
+                  <div
+                    :style="checkbox"
+                    class="checkbox">
+                    <bootstrap-toggle
+                      id="user_enable"
+                      v-model="form.enable"
+                      :options="{ on: $t('toggle.on'), off: $t('toggle.off') }"
+                      :disabled="false"/>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <hr>
         <div class="row">
           <div class="col-md-12">
-            <h4>Notas finais provisórias</h4>
-          </div>
-          <div class="col-md-12">
-            <vuetable 
-              ref="provisionalFinals"
-              :api-url="api_url.provisionalFinal"
-              :fields="fields.provisionalFinal"
-              :css="css.table"
-              :per-page="perPage"
-              :append-params="appendParams"
-              pagination-path=""
-              detail-row-component="final-detail-row"
-              @vuetable:cell-clicked="onCellClicked"
-            />
+            <button
+              v-if="!userRegistered"
+              type="submit"
+              class="btn btn-default"
+              @click="register">
+              {{ $t('register.register') }}
+            </button>
+            <button
+              v-if="userRegistered"
+              type="submit"
+              class="btn btn-default"
+              @click="update">
+              {{ $t('register.update') }}
+            </button>
+            <button
+              v-if="userRegistered"
+              type="submit"
+              class="btn btn-default"
+              @click="remove">
+              {{ $t('register.remove') }}
+            </button>
           </div>
         </div>
-        <hr>
+        <br>
         <div class="row">
-          <div class="col-md-12">
-            <h4>Notas definitivas recentes</h4>
-          </div>
-          <div class="col-md-12">
-            <vuetable 
-              ref="definitiveRecent"
-              :api-url="api_url.definitiveRecent"
-              :fields="fields.definitiveRecent"
-              :css="css.table"
-              :per-page="perPage"
-              :append-params="appendParams"
-              pagination-path=""
-            />
-          </div>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-md-12">
-            <h4>Notas definitivas histórico</h4>
-          </div>
-          <div class="col-md-12">
-            <vuetable 
-              ref="definitiveHistoric"
-              :api-url="api_url.definitiveHistoric"
-              :fields="fields.definitiveHistoric"
-              :css="css.table"
-              :per-page="perPage"
-              :append-params="appendParams"
-              pagination-path=""
-              @vuetable:pagination-data="onPaginationDataHistoric"
-            />
-          </div>
-          <div class="col-md-12">
-            <div class="vuetable-pagination">
-              <vuetable-pagination-info
-                ref="paginationInfoHistoric"
-                info-class="pagination-info"/>
-              <vuetable-pagination-bootstrap
-                ref="paginationHistoric"
-                class="pull-right"
-                @vuetable-pagination:change-page="onChangePageHistoric"/>
+          <div class="col-md-3">
+            <div
+              v-if="errors.status"
+              class="alert alert-danger alert-dismissible">
+              <a
+                href="#"
+                class="close"
+                data-dismiss="alert"
+                aria-label="close">&times;</a>
+              {{ errors.message }}
+            </div>
+            <div
+              v-if="success.status"
+              class="alert alert-success alert-dismissible">
+              <a
+                href="#"
+                class="close"
+                data-dismiss="alert"
+                aria-label="close">&times;</a>
+              {{ success.message }}
             </div>
           </div>
         </div>
@@ -132,139 +154,78 @@
 </template>
 
 <script>
-  import Vuetable from 'vuetable-2/src/components/Vuetable'
-  import Vue from 'vue/dist/vue.esm'
-  import VueEvents from 'vue-events'
-  import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo'
-  import VuetablePaginationBootstrap from './VuetablePaginationBootstrap'
-  import FinalGradeDetailRow from './grades/FinalGradeDetailRow'
-  Vue.use(VueEvents)
-  Vue.component('final-detail-row', FinalGradeDetailRow)
+    import BootstrapToggle from 'vue-bootstrap-toggle'
   export default {
     name: "UserDetailsComponent",
-    components: {
-      Vuetable,
-      VuetablePaginationInfo,
-      VuetablePaginationBootstrap
-    },
-    data() {
-      return {
-        years: [],
-        selectedYear: '',
-        perPage: 10,
-        fields: {
-          provisionalPartial: [
-            {
-              name: 'unidade_curricular',
-              title: 'Unidade Curricular'
-            },
-            {
-              name: 'elemento',
-              title: 'Elemento'
-            },
-            {
-              name: 'nota',
-              title: 'Nota'
-            }
-          ],
-          tmp: [],
-          provisionalFinal: [
-            {
-              name: 'curricular_unit',
-              title: 'Unidade Curricular'
-            },
-            {
-              name: 'epoch',
-              title: 'Época'
-            },
-            {
-              name: 'final_grade',
-              title: 'Classificação Final'
-            }
-          ],
-          definitiveRecent: [
-            {
-              name: 'description',
-              title: 'Descricao'
-            },
-            {
-              name: 'grade',
-              title: 'Resultado'
-            },
-          ],
-          definitiveHistoric: [
-            {
-              name: 'unit',
-              title: 'Unidade'
-            },
-            {
-              name: 'grade',
-              title: 'Nota'
-            },
-            {
-              name: 'registration_date',
-              title: 'Registo'
-            }
-          ],
-        },
-        css: {
-          table: {
-            tableClass: 'table table-bordered table-striped table-hover',
-            ascendingIcon: 'glyphicon glyphicon-chevron-up',
-            descendingIcon: 'glyphicon glyphicon-chevron-down'
+      components: { BootstrapToggle },
+      data() {
+          return {
+              form: {
+                  name: '',
+                  student_number: '',
+                  email: '',
+                  contact: '',
+                  enable: null,
+                  email_notification: null,
+                  sms_notification: null,
+              },
+              errors: {
+                  status: false,
+                  message: ''
+              },
+              success: {
+                  status: false,
+                  message: ''
+              },
+              userRegistered: false,
+              checkbox: 'margin-top: inherit !important;'
+          }
+      },
+      beforeMount() {
+          axios.get('/api/admin/user/'+ this.$route.params.user_id +'?token=' + this.$ls.get('token'))
+              .then(response => {
+                  this.form = response.data.message
+                  this.userRegistered = true
+              })
+              .catch(e => {
+                  // ignored
+              })
+      },
+      methods: {
+          update() {
+              axios.put('/api/admin/user/update', {
+                  information: this.form,
+                  token: this.$ls.get('token')
+              })
+              .then(response => {
+                  this.errors.status = false
+                  this.success.status = true
+                  this.success.message = response.data.message
+              })
+              .catch(e => {
+                  this.success.status = false
+                  this.errors.status = true
+                  this.errors.message = e.response.data.message
+              })
           },
-        },
-        appendParams: {
-          year: this.selectedYear
-        },
-        api_url:{
-          provisionalPartial: '/api/web/admin/user/grades/provisional/partials?user_id=' + this.$route.params.user_id,
-          provisionalFinal: '/api/web/admin/user/grades/provisional/finals?user_id=' + this.$route.params.user_id,
-          definitiveRecent: '/api/web/admin/user/grades/definitive/recent?user_id=' + this.$route.params.user_id,
-          definitiveHistoric: '/api/web/admin/user/grades/definitive/historic?user_id=' + this.$route.params.user_id,
-        },
+          remove() {
+              axios.post('/api/admin/user/remove', {
+                  token: this.$ls.get('token'),
+                  student_number: this.form.student_number
+              })
+                  .then(response => {
+                      this.errors.status = false
+                      this.success.status = true
+                      console.log(response.data)
+                      this.$router.push('/admin/users')
+                  })
+                  .catch(e => {
+                      this.success.status = false
+                      this.errors.status = true
+                      this.errors.message = e.response.data.message
+                  })
+          }
       }
-    },
-    watch: {
-      'selectedYear': function (val, oldVal) {
-        this.appendParams.year = val;
-        Vue.nextTick(() => this.$refs.provisionalPartial.refresh())
-      },
-    },
-    beforeMount() {
-      axios.get('/api/web/admin/user/grades/provisional/partials/years?user_id=7')
-        .then(response => {
-          response.data.forEach(year => {
-            this.years.push({
-              id: year,
-              name: year
-            })
-          });
-          this.selectedYear = response.data[0];
-        })
-        .catch(e => {
-          console.log(e)
-        })
-    },
-    methods: {
-      onPaginationDataProvisionalPartial(paginationData) {
-        this.$refs.provisionalPartialPagination.setPaginationData(paginationData);
-        this.$refs.provisionalPartialPaginationInfo.setPaginationData(paginationData);
-      },
-      onChangePageProvisionalPartial(page) {
-        this.$refs.provisionalPartial.changePage(page)
-      },
-      onPaginationDataHistoric(paginationData) {
-        this.$refs.paginationHistoric.setPaginationData(paginationData);
-        this.$refs.paginationInfoHistoric.setPaginationData(paginationData);
-      },
-      onChangePageHistoric(page) {
-        this.$refs.definitiveHistoric.changePage(page)
-      },
-      onCellClicked(data, field, event) {
-        this.$refs.provisionalFinals.toggleDetailRow(data.id)
-      }
-    },
   }
 </script>
 

@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'json'
+
 class AdminMiddleware
   def initialize(app)
     @app = app
@@ -8,7 +12,7 @@ class AdminMiddleware
 
     if protected_route(request.path)
       unless is_token_invalid(request.params['token'])
-        return [403, { 'Content-Type' => 'text/html', 'Content-Length' => 'Invalid token'.size.to_s }, ['Invalid admin token']]
+        return [403, { 'Content-Type' => 'text/html', 'Content-Length' => 'Forbidden'.size.to_s }, ['Forbidden']]
       end
     end
 
@@ -17,17 +21,24 @@ class AdminMiddleware
 
   private
 
+  def get_user_from_token(token)
+    data = JSON.parse(CipherHelper.decrypt(token))
+    data['username']
+  end
+
   def is_token_invalid(token)
-    if token.to_s.length == 0
+    return false if token.to_s.empty?
+    number = get_user_from_token(token)
+
+    begin
+      user = User.find_by(student_number: number)
+      return user.admin unless user.nil?
+    rescue ActiveRecord::RecordNotFound
       return false
     end
-
-    admin = User.find(1)
-    admin.tokens == token
   end
 
   def protected_route(route)
-    routes = %w(/sidekiq)
-    routes.include? route
+    route.to_s.match('(?<=\/api\/admin\/).*$')
   end
 end
