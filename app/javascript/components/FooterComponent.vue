@@ -4,11 +4,8 @@
     class="main-footer">
     <div class="pull-right">
       <select v-model="selectedLanguage">
-        <option 
-          v-for="lang in langs"
-          :key="lang.id">
-          {{ lang.name }}
-        </option>
+        <option value="pt">Português</option>
+        <option value="en">English</option>
       </select>
     </div>
     <strong>Copyright &copy; 2017-2018.</strong> All rights reserved.
@@ -19,24 +16,13 @@
     export default {
         data() {
             return {
-                selectedLanguage: this.$i18n.locale,
-                langs: [
-                    {
-                        id: 'en',
-                        name: 'English',
-                    },
-                    {
-                        id: 'pt',
-                        name: 'Português'
-                    }
-                ]
+                selectedLanguage: this.$i18n.locale
             }
         },
         watch: {
             'selectedLanguage': function (val, oldVal) {
-                const lang = (val === 'English' ? 'en' : 'pt');
-                this.$i18n.locale = lang;
-                this.$ls.set('locale', lang)
+                this.$i18n.locale = val;
+                this.$ls.set('locale', val)
                 this.$bus.$emit('change-language', null)
             },
         }
