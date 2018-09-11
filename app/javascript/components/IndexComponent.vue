@@ -34,7 +34,6 @@
 <script>
     import {FullCalendar} from 'vue-full-calendar'
     import 'fullcalendar/dist/locale/pt'
-
     export default {
         name: "IndexComponent",
         components: {
@@ -93,6 +92,6 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+@import 'fullcalendar/dist/fullcalendar.min.css';
 </style>
