@@ -22,6 +22,7 @@ Vue.use(VueMq, {
     }
 })
 
+import '../lib/stylesheets'
 import '../lib/scripts'
 import router from '../lib/routes'
 import {EventBus} from '../lib/event-bus'
@@ -40,6 +41,7 @@ const i18n = new VueI18n({
     locale: locale === null ? 'pt' : locale,
     messages
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new Vue({
