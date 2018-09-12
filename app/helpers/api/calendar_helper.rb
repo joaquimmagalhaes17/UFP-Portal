@@ -18,7 +18,7 @@ module Api
             type: entry['Tipologia'],
             year: entry['AnoLectivo'],
             room: entry['Sala'],
-            responsable: entry['Responsavel'].gsub!('<br>', ', ')
+            responsable: entry['Responsavel'].to_s.include?('<br>') ? entry['Responsavel'].gsub!('<br>', ', ') : entry['Responsavel']
           }
         }
       end
