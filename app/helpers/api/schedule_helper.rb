@@ -19,8 +19,6 @@ module Api::ScheduleHelper
     schedule
   end
 
-  private
-
   def self.get_day_object(schedule, day)
     schedule.each do |entry|
       return entry if entry[:day] == day
