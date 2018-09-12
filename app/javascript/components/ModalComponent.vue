@@ -23,13 +23,18 @@
             id="bsModalLabel" 
             class="modal-title">{{ title }}</h4>
         </div>
-        <div class="modal-body">
-          <p>Inicio: {{ start }}</p>
-          <p>Fim: {{ end }}</p>
-          <p>Sala: {{ room }}</p>
-          <p>Curso: {{ course }}</p>
-          <p>Tipologia: {{ type }}</p>
-          <p>Responsavel: {{ responsable }}</p>
+        <div class="modal-body" v-if="isExam">
+          <p>Inicio: {{ exam.start }}</p>
+          <p>Fim: {{ exam.end }}</p>
+          <p>Sala: {{ exam.room }}</p>
+          <p>Curso: {{ exam.course }}</p>
+          <p>Tipologia: {{ exam.type }}</p>
+          <p>Responsavel: {{ exam.responsable }}</p>
+        </div>
+        <div class="modal-body" v-if="!isExam">
+          <p>Inicio: {{ class_details.start }}</p>
+          <p>Fim: {{ class_details.end }}</p>
+          <p>Sala: {{ class_details.room }}</p>
         </div>
         <div class="modal-footer">
           <button 
@@ -49,24 +54,31 @@
         data () {
             return {
                 title: '',
-                start: '',
-                end: '',
-                room: '',
-                type: '',
-                course: '',
-                responsable: '',
-                confirmText: 'Close'
+                exam: {
+                    start: '',
+                    end: '',
+                    room: '',
+                    type: '',
+                    course: '',
+                    responsable: '',
+                    confirmText: 'Close'
+                },
+                class_details: {
+                    start: '',
+                    end: '',
+                    room: '',
+                },
+                isExam: false
             }
         },
         mounted () {
             this.$bus.$on('open-modal', (args) => {
-                this.title = args.details['curricular_unit']
-                this.start = this.timeFormat(args.start)
-                this.end = this.timeFormat(args.end)
-                this.room = args.details.room
-                this.type = args.details.type
-                this.responsable = args.details.responsable
-                this.course = args.details.course
+                if (args.color === "green") {
+                    this.parseClassDetails(args)
+                } else {
+                  this.parseExamDetails(args)
+                }
+
                 $('#bsModal').modal('show')
             })
 
@@ -93,6 +105,23 @@
             },
             timeFormat(timestamp) {
                 return moment(timestamp).format("HH:mm")
+            },
+            parseExamDetails(details) {
+                this.isExam = true
+                this.title = details.details['curricular_unit'];
+                this.exam.start = this.timeFormat(details.start);
+                this.exam.end = this.timeFormat(details.end);
+                this.exam.room = details.details.room;
+                this.exam.type = details.details.type;
+                this.exam.responsable = details.details.responsable;
+                this.exam.course = details.details.course;
+            },
+            parseClassDetails(details) {
+                this.isExam = false;
+                this.title = `${details.details['curricular_unit']} (${details.details.type})`;
+                this.class_details.start = this.timeFormat(details.start);
+                this.class_details.end = this.timeFormat(details.end);
+                this.class_details.room = details.details.room;
             }
         }
     }
