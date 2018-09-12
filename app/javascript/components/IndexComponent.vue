@@ -94,4 +94,7 @@
 
 <style>
 @import 'fullcalendar/dist/fullcalendar.min.css';
+.fc-time-grid-event.fc-v-event.fc-event.fc-start.fc-end {
+  right: -2% !important;
+}
 </style>
