@@ -91,7 +91,14 @@ let messages = {
             password: 'Password',
             register: 'Register',
             update: 'Update',
-            remove: 'Remove'
+            remove: 'Remove',
+            sms_notifications: 'SMS',
+            email_notifications: 'Email',
+            enable: 'Enable'
+        },
+        toggle: {
+            on: 'Yes',
+            off: 'No'
         }
     },
     pt: {
@@ -181,7 +188,14 @@ let messages = {
             password: 'Password',
             register: 'Registar',
             update: 'Atualizar',
-            remove: 'Remover'
+            remove: 'Remover',
+            sms_notifications: 'SMS',
+            email_notifications: 'Email',
+            enable: 'Ativado'
+        },
+        toggle: {
+            on: 'Sim',
+            off: 'Não'
         }
     }
 };

@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/./bot/analysis'
 namespace :bot do
   desc 'Check if new grades were released to all users'
   task grades: :environment do
-    users = User.all
+    users = User.where(enable: true)
 
     semaphore = Concurrent::Semaphore.new(4)
     threads = []

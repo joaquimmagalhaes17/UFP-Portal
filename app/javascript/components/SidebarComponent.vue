@@ -1,6 +1,6 @@
 <template>
-  <aside 
-    v-if="['Login'].indexOf($route.name) !== 0" 
+  <aside
+    v-if="['Login'].indexOf($route.name) !== 0"
     class="main-sidebar">
     <section class="sidebar">
       <ul
@@ -33,10 +33,14 @@
               </a>
               <ul class="treeview-menu">
                 <li>
-                  <router-link to="/provisional/partials"><i class="fa fa-circle-o"/>{{ $t("sidebar.grades.partial") }}</router-link>
+                  <router-link to="/provisional/partials"><i class="fa fa-circle-o"/>{{
+                  $t("sidebar.grades.partial") }}
+                  </router-link>
                 </li>
                 <li>
-                  <router-link to="/provisional/finals"><i class="fa fa-circle-o"/>{{ $t("sidebar.grades.final") }}</router-link>
+                  <router-link to="/provisional/finals"><i class="fa fa-circle-o"/>{{
+                  $t("sidebar.grades.final") }}
+                  </router-link>
                 </li>
               </ul>
             </li>
@@ -50,10 +54,14 @@
               </a>
               <ul class="treeview-menu">
                 <li>
-                  <router-link to="/definitive/recent"><i class="fa fa-circle-o"/>{{ $t("sidebar.grades.recent") }}</router-link>
+                  <router-link to="/definitive/recent"><i class="fa fa-circle-o"/>{{
+                  $t("sidebar.grades.recent") }}
+                  </router-link>
                 </li>
                 <li>
-                  <router-link to="/definitive/historic"><i class="fa fa-circle-o"/>{{ $t("sidebar.grades.grades_log") }}</router-link>
+                  <router-link to="/definitive/historic"><i class="fa fa-circle-o"/>{{
+                  $t("sidebar.grades.grades_log") }}
+                  </router-link>
                 </li>
               </ul>
             </li>
@@ -64,8 +72,8 @@
             <i class="fa fa-home"/> <span>{{ $t("sidebar.assiduity") }}</span>
           </router-link>
         </li>
-        <li 
-          v-if="admin" 
+        <li
+          v-if="admin"
           class="treeview">
           <a href="#">
             <i class="fa fa-address-book-o"/>
@@ -77,9 +85,6 @@
           <ul class="treeview-menu">
             <li>
               <router-link to="/admin/users"><i class="fa fa-circle-o"/>Users</router-link>
-            </li>
-            <li>
-              <router-link to="/definitive/historic"><i class="fa fa-circle-o"/>Histórico</router-link>
             </li>
           </ul>
         </li>
@@ -95,30 +100,37 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        applicants: [],
-        errors: [],
-        activeItem: 'index',
-        admin: false
-      }
-    },
-    created() {
-    },
-    methods: {
-      isActive: function (menuItem) {
-        return this.activeItem === menuItem
-      },
+    export default {
+        data() {
+            return {
+                applicants: [],
+                errors: [],
+                activeItem: 'index',
+                admin: false
+            }
+        },
+        created() {
+        },
+        beforeMount() {
+            axios.get('/api/admin/check?token=' + this.$ls.get('token')).then(_ => {
+                this.admin = true
+            }).catch(_ => {
+                this.admin = false
+            })
+        },
+        methods: {
+            isActive: function (menuItem) {
+                return this.activeItem === menuItem
+            },
 
-      setActive: function (menuItem) {
-        this.activeItem = menuItem
-      }
-    },
-    events: {
-      'set-active'(menuItem) {
-        this.activeItem = menuItem
-      }
+            setActive: function (menuItem) {
+                this.activeItem = menuItem
+            }
+        },
+        events: {
+            'set-active'(menuItem) {
+                this.activeItem = menuItem
+            }
+        },
     }
-  }
 </script>
