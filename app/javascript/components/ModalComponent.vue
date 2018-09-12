@@ -23,7 +23,9 @@
             id="bsModalLabel" 
             class="modal-title">{{ title }}</h4>
         </div>
-        <div class="modal-body" v-if="isExam">
+        <div 
+          v-if="isExam" 
+          class="modal-body">
           <p>Inicio: {{ exam.start }}</p>
           <p>Fim: {{ exam.end }}</p>
           <p>Sala: {{ exam.room }}</p>
@@ -31,7 +33,9 @@
           <p>Tipologia: {{ exam.type }}</p>
           <p>Responsavel: {{ exam.responsable }}</p>
         </div>
-        <div class="modal-body" v-if="!isExam">
+        <div 
+          v-if="!isExam" 
+          class="modal-body">
           <p>Inicio: {{ class_details.start }}</p>
           <p>Fim: {{ class_details.end }}</p>
           <p>Sala: {{ class_details.room }}</p>
