@@ -3,46 +3,48 @@
 module Api::GradesHelper
   def self.parse_partial_grades(partial_grades)
     grades = []
-    years = []
 
     partial_grades.each do |grade|
-      unless years.include? grade['AnoLectivo']
-        grades << {
-          year: grade['AnoLectivo'],
-          grades: []
-        }
-        years << grade['AnoLectivo']
-      end
-
-      grades.each do |entry|
-        inserted = false
-        next unless entry[:year] == grade['AnoLectivo']
-        entry[:grades].each do |grade_inserted|
-          next unless grade_inserted[:curricular_unit] == grade['Unidade']
-          grade_inserted[:grades] << {
-            element: grade['Elemento'],
-            grade: grade['Nota'],
-            released_by: grade['Responsavel'],
-            registration_date: grade['Registo']
-          }
-          inserted = true
-        end
-        next if inserted
-        tmp = {
-          curricular_unit: grade['Unidade'],
-          grades: []
-        }
-        tmp[:grades] << {
+      get_grade_array(grades, grade['AnoLectivo'], grade['Unidade']) << {
           element: grade['Elemento'],
           grade: grade['Nota'],
           released_by: grade['Responsavel'],
           registration_date: grade['Registo']
-        }
-        entry[:grades] << tmp
-      end
+      }
     end
 
     grades
+  end
+
+  def self.get_grade_array(grades, year, curricular_unit)
+    grades.each do |entry|
+      return get_unit_array(entry[:grades], curricular_unit) if entry[:year] == year
+    end
+
+    aux = {
+      year: year,
+      grades: [{
+        curricular_unit: curricular_unit,
+        grades: []
+      }]
+    }
+
+    grades << aux
+    aux[:grades]
+  end
+
+  def self.get_unit_array(year_grades, curricular_unit)
+    year_grades.each do |entry|
+      return entry[:grades] if entry[:curricular_unit] == curricular_unit
+    end
+
+    aux = {
+      curricular_unit: curricular_unit,
+      grades: []
+    }
+
+    year_grades << aux
+    aux[:grades]
   end
 
   def self.parse_partial_years(partial_grades)
