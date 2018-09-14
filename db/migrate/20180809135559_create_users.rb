@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.text :student_number
       t.text :password
       t.text :tokens
+      t.text :partial_grades_hash
       t.boolean :first_usage, default: true
       t.text :contact
       t.boolean :email_notification, default: true
