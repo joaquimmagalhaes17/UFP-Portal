@@ -6,7 +6,7 @@ module Api::GradesHelper
 
     partial_grades.each do |grade|
       get_grade_array(grades, grade['AnoLectivo'], grade['Unidade']) << {
-          element: grade['Elemento'],
+        element: grade['Elemento'],
           grade: grade['Nota'],
           released_by: grade['Responsavel'],
           registration_date: grade['Registo']
@@ -21,16 +21,18 @@ module Api::GradesHelper
       return get_unit_array(entry[:grades], curricular_unit) if entry[:year] == year
     end
 
+    unit_aux = {
+      curricular_unit: curricular_unit,
+      grades: []
+    }
+
     aux = {
       year: year,
-      grades: [{
-        curricular_unit: curricular_unit,
-        grades: []
-      }]
+      grades: [unit_aux]
     }
 
     grades << aux
-    aux[:grades]
+    unit_aux[:grades]
   end
 
   def self.get_unit_array(year_grades, curricular_unit)
