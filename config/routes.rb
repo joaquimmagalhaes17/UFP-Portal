@@ -21,7 +21,6 @@ Rails.application.routes.draw do
     post '/register', to: 'bot#register'
     post '/update', to: 'bot#update'
     post '/mobile/device/add', to: 'firebase#register_device_id'
-    post '/mobile/device/update', to: 'firebase#update_device_id'
     post '/mobile/device/remove', to: 'firebase#remove_device_id'
 
     get '/admin/users', to: 'admin#get_users'
