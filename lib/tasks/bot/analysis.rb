@@ -7,6 +7,7 @@ require "#{Rails.root}/app/models/partial_grade"
 require "#{Rails.root}/app/models/final_grade"
 require "#{Rails.root}/app/jobs/notify_partial_grade_job"
 require "#{Rails.root}/app/jobs/notify_final_grade_job"
+require "#{Rails.root}/app/helpers/cipher_helper"
 require 'digest'
 require 'json'
 
