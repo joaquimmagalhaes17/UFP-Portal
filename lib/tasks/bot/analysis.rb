@@ -7,6 +7,9 @@ require "#{Rails.root}/app/models/partial_grade"
 require "#{Rails.root}/app/models/final_grade"
 require "#{Rails.root}/app/jobs/notify_partial_grade_job"
 require "#{Rails.root}/app/jobs/notify_final_grade_job"
+require "#{Rails.root}/app/helpers/cipher_helper"
+require 'digest'
+require 'json'
 
 class Analysis
   def initialize(user)
@@ -46,13 +49,19 @@ class Analysis
       grades = SOAPHandler.provisional_partial_grades(@tokens)
     end
 
-    grades = JSON.parse(grades) if grades.is_a? String
-
     return unless grades
+
+    old_hash = @user.partial_grades_hash
+    new_hash = Digest::SHA256.hexdigest(grades.is_a?(Array) ? JSON.dump(grades) : grades)
+    return if old_hash == new_hash
+
+    grades = JSON.parse(grades) if grades.is_a? String
 
     grades.each do |grade|
       partial_grade_exists(grade['AnoLectivo'], grade['Unidade'], grade['Elemento'], grade['Nota'])
     end
+
+    @user.update(partial_grades_hash: new_hash)
   end
 
   def partial_grade_exists(year, unit, element, grade)
