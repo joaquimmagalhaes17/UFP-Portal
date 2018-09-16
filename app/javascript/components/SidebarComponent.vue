@@ -93,6 +93,13 @@
             <i class="fa fa-home"/> <span><b>UFP</b>Bot</span>
           </router-link>
         </li>
+        <li>
+          <router-link
+            to="/login"
+            @click.native="logout">
+            <i class="fa fa-home"/> <span>Sair</span>
+          </router-link>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -125,6 +132,10 @@
 
             setActive: function (menuItem) {
                 this.activeItem = menuItem
+            },
+            logout() {
+                this.$ls.remove('token');
+                window.location.href = "/";
             }
         },
         events: {
