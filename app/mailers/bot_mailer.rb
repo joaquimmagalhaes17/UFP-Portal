@@ -4,7 +4,7 @@ class BotMailer < ApplicationMailer
     @unit = unit
     @element = element
     @grade = grade
-    mail(to: user.email, subject: unit.to_s)
+    mail(from: "GradesBot <#{ENV['stmp_username']}>", to: "#{user.name} <#{user.email}>", subject: unit.to_s)
   end
 
   def final_grade(user, curricular_unit, epoch, oral_ex, write_ex, final_grade, consultation_date, oral_date)
@@ -16,6 +16,6 @@ class BotMailer < ApplicationMailer
     @final_grade = final_grade
     @consultation_date = consultation_date
     @oral_date = oral_date
-    mail(to: user.email, subject: curricular_unit.to_s)
+    mail(from: "GradesBot <#{ENV['stmp_username']}>", to: "#{user.name} <#{user.email}>", subject: curricular_unit.to_s)
   end
 end
