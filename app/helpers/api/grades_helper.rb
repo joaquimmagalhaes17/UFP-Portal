@@ -5,48 +5,52 @@ module Api::GradesHelper
     grades = []
 
     partial_grades.each do |grade|
-      get_grade_array(grades, grade['AnoLectivo'], grade['Unidade']) << {
-        element: grade['Elemento'],
-          grade: grade['Nota'],
-          released_by: grade['Responsavel'],
-          registration_date: grade['Registo']
-      }
+      fill_grade_array(grades, grade)
     end
 
     grades
   end
 
-  def self.get_grade_array(grades, year, curricular_unit)
-    grades.each do |entry|
-      return get_unit_array(entry[:grades], curricular_unit) if entry[:year] == year
-    end
+  def self.fill_grade_array(data, entry)
+    obj = data.find { |year_obj| year_obj[:year] == entry["AnoLectivo"] }
+    return get_unit_array(obj[:grades], entry) unless obj.nil?
 
-    unit_aux = {
-      curricular_unit: curricular_unit,
-      grades: []
+    data << {
+      year: entry["AnoLectivo"],
+      grades: [{
+        curricular_unit: entry["Unidade"],
+        grades: [{
+          element: entry["Elemento"],
+          grade: entry["Nota"],
+          released_by: entry["Responsavel"],
+          registration_date: entry["Registo"]
+        }]
+      }]
     }
-
-    aux = {
-      year: year,
-      grades: [unit_aux]
-    }
-
-    grades << aux
-    unit_aux[:grades]
   end
 
-  def self.get_unit_array(year_grades, curricular_unit)
-    year_grades.each do |entry|
-      return entry[:grades] if entry[:curricular_unit] == curricular_unit
+  def self.get_unit_array(year_grades, entry)
+    obj = year_grades.find { |year_obj| year_obj[:curricular_unit] == entry["Unidade"] }
+    unless obj.nil?
+      return obj[:grades] << {
+          element: entry["Elemento"],
+          grade: entry["Nota"],
+          released_by: entry["Responsavel"],
+          registration_date: entry["Registo"]
+      }
     end
 
     aux = {
-      curricular_unit: curricular_unit,
-      grades: []
+      curricular_unit: entry["Unidade"],
+      grades: [{
+        element: entry["Elemento"],
+        grade: entry["Nota"],
+        released_by: entry["Responsavel"],
+        registration_date: entry["Registo"]
+      }]
     }
 
     year_grades << aux
-    aux[:grades]
   end
 
   def self.parse_partial_years(partial_grades)
@@ -67,18 +71,17 @@ module Api::GradesHelper
 
     counter = 0
     partial_grades.each do |grade|
-      if grade['AnoLectivo'] == year
-        if first <= counter && counter < last
-          grades << {
-            element: grade['Elemento'],
-            grade: grade['Nota'],
-            released_by: grade['Responsavel'],
-            registration_date: grade['Registo'],
-            curricular_unit: grade['Unidade']
-          }
-        end
-        counter += 1
+      next unless grade['AnoLectivo'] == year
+      if first <= counter && counter < last
+        grades << {
+          element: grade['Elemento'],
+          grade: grade['Nota'],
+          released_by: grade['Responsavel'],
+          registration_date: grade['Registo'],
+          curricular_unit: grade['Unidade']
+        }
       end
+      counter += 1
     end
 
     counter -= 1
@@ -96,11 +99,11 @@ module Api::GradesHelper
       per_page: Integer(params[:per_page]),
       current_page: Integer(params[:page]),
       last_page: total_pages,
-      next_page_url: if Integer(params[:page]) == total_pages || total_pages == 0 then
+      next_page_url: if Integer(params[:page]) == total_pages || total_pages == 0
                        nil
                      else
                        true
-                     end,
+                       end,
       prev_page_url: Integer(params[:page]) == 1 ? nil : true,
       from: first + 1,
       to: first + grades.count,
@@ -141,7 +144,7 @@ module Api::GradesHelper
       per_page: Integer(params[:per_page]),
       current_page: Integer(params[:page]),
       last_page: total_pages,
-      next_page_url: ((Integer(params[:page]) == total_pages || total_pages == 0) ? nil : true),
+      next_page_url: (Integer(params[:page]) == total_pages || total_pages == 0 ? nil : true),
       prev_page_url: Integer(params[:page]) == 1 ? nil : true,
       from: first + 1,
       to: first + grades.count,
@@ -205,8 +208,6 @@ module Api::GradesHelper
     degree[:courses] << aux
     aux
   end
-
-
 
   def self.parse_final_grades(final_grades)
     grades = []
